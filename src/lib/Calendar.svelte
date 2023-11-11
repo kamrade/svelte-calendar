@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { format, startOfMonth, endOfMonth } from 'date-fns';
-  import { 
-    weekdays, getPreviousMonth, getNextMonth, weekdaysArray, getWeekday,
-    getPreviousYear, getNextYear, getPreviousDecade, getNextDecade
-  } from './Calendar';
+  import { startOfMonth, endOfMonth } from 'date-fns';
+  import { weekdays, getPreviousMonth, getNextMonth,getPreviousYear, getNextYear, getPreviousDecade, getNextDecade, refreshCalendarGrid } from './Calendar';
+  import type { IDays } from './Calendar';
   import MonthAndYear from './MonthAndYear.svelte';
 
   const d = new Date();
@@ -34,13 +32,8 @@
   let selectedMonth: number;
   let selectedYear: number;
 
-  type DayType = 'currentMonth' | 'previousMonth' | 'nextMonth';
 
-  interface IDays {
-    dayType: DayType;
-    dateNumber: number;
-  }
-  let currentMonthDays: IDays[][] = [[],[],[],[],[],[]];
+  let currentMonthDays: IDays[][];
   
 
   $: {
@@ -58,59 +51,8 @@
     nextMonthEndDay = endOfMonth( new Date(nextYear, nextMonth+1, 0) );
     daysInNextMonth = new Date(nextYear, nextMonth+1, 0).getDate();
 
-    // Helpers
-    let currentMonthStartDayNumber = getWeekday(currentMonthStartDay);
-    let weeks = Math.trunc((daysInCurrentMonth - (7 - currentMonthStartDayNumber)) / 7);
-    let max = 0;
-    let nextMax = 1;
-
-    for (let i = 0; i < 6; i++) {
-      if (i === 0) {
-        for (let j = 0; j < currentMonthStartDayNumber; j++) {
-          currentMonthDays[i][j] = {
-            dayType: 'previousMonth',
-            dateNumber: daysInPreviousMonth - currentMonthStartDayNumber + j + 1
-          };
-        }
-        for (let j = currentMonthStartDayNumber; j < 7; j++) {
-          max++;
-          currentMonthDays[i][j] = {
-            dayType: 'currentMonth',
-            dateNumber: j - currentMonthStartDayNumber + 1
-          };
-        }
-      } else if (i > weeks) {
-        
-        for (let j = 0; j < 7; j++) {
-          if (max < daysInCurrentMonth) {
-            max++;
-            currentMonthDays[i][j] = {
-              dayType: 'currentMonth',
-              dateNumber: max
-            };
-          } else {
-            currentMonthDays[i][j] = {
-              dayType: 'nextMonth',
-              dateNumber: nextMax
-            };
-            nextMax++;
-          } 
-        }
-
-      } else {
-        for (let j = 0; j < 7; j++) {  
-          max++;        
-          currentMonthDays[i][j] = {
-            dayType: 'currentMonth',
-            dateNumber: max
-          };
-        }
-      }
-    }
-  }
-
-  $: {
-
+    currentMonthDays = refreshCalendarGrid(currentMonthStartDay, daysInPreviousMonth, daysInCurrentMonth);
+    
   }
 
   const reset = (e: MouseEvent) => {
@@ -130,6 +72,7 @@
     }
     
   };
+
   const next = (e: MouseEvent) => {
     if (e.shiftKey) {
       [currentMonth, currentYear] = getNextYear(currentMonth, currentYear);
