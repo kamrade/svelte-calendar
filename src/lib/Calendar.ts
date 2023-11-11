@@ -36,6 +36,22 @@ export const getNextMonth = (currentMonth: number, currentYear: number) => {
   }
 }
 
+export const getPreviousYear = (currentMonth: number, currentYear: number) => {
+  return [ currentMonth, currentYear-1];
+}
+
+export const getNextYear = (currentMonth: number, currentYear: number) => {
+  return [ currentMonth, currentYear+1];
+}
+
+export const getPreviousDecade = (currentMonth: number, currentYear: number) => {
+  return [ currentMonth, currentYear-10];
+}
+
+export const getNextDecade = (currentMonth: number, currentYear: number) => {
+  return [ currentMonth, currentYear+10];
+}
+
 export const getWeekdayName = (day: Date): string => {
   return format(day, 'EEE');
 }
@@ -43,3 +59,4 @@ export const getWeekdayName = (day: Date): string => {
 export const getWeekday = (day: Date): number => {
   return weekdaysArray.indexOf( getWeekdayName(day) );
 }
+
