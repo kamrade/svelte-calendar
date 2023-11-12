@@ -106,6 +106,7 @@
     }
   };
 
+  // mouse click handler. Set daterange
   const setDate = (e: MouseEvent, day: number) => {
     if (dateRange) {
       if (currentSelector === 'primary') {
@@ -127,28 +128,29 @@
   }
 
   const checkDate = (day: number, dayType: DayType) => {
+    if (dateRange) {
+      let currentDate: Date;
 
-    let currentDate: Date;
-
-    if (dayType === 'previousMonth') {
-      if (previousMonth !== 11) {
-        currentDate = new Date(currentYear, previousMonth, day);
+      if (dayType === 'previousMonth') {
+        if (previousMonth !== 11) {
+          currentDate = new Date(currentYear, previousMonth, day);
+        } else {
+          currentDate = new Date(currentYear-1, previousMonth, day);
+        }
+      } else if (dayType === 'nextMonth') {
+        if (nextMonth !== 0) {
+          currentDate = new Date(currentYear, nextMonth, day);
+        } else {
+          currentDate = new Date(currentYear+1, nextMonth, day);
+        }
+        // if currentMonth:
       } else {
-        currentDate = new Date(currentYear-1, previousMonth, day);
+        currentDate = new Date(currentYear, currentMonth, day);
       }
-    } else if (dayType === 'nextMonth') {
-      if (nextMonth !== 0) {
-        currentDate = new Date(currentYear, nextMonth, day);
-      } else {
-        currentDate = new Date(currentYear+1, nextMonth, day);
-      }
-      // if currentMonth:
-    } else {
-      currentDate = new Date(currentYear, currentMonth, day);
-    }
 
-    if (dateIsInRange(currentDate, selectedDate, selectedDateSec)) {
-      return true;
+      if (dateIsInRange(currentDate, selectedDate, selectedDateSec)) {
+        return true;
+      }
     }
 
     return false;
