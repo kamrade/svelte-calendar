@@ -1,8 +1,12 @@
 <script lang="ts">
-  import { startOfMonth, endOfMonth } from 'date-fns';
+  import { startOfMonth, endOfMonth, isBefore, isAfter, isEqual } from 'date-fns';
   import { weekdays, getPreviousMonth, getNextMonth,getPreviousYear, getNextYear, getPreviousDecade, getNextDecade, refreshCalendarGrid } from './Calendar';
   import type { IDays } from './Calendar';
   import MonthAndYear from './MonthAndYear.svelte';
+
+
+  export let dateRange = false;
+
 
   const d = new Date();
   let actualMonth = d.getMonth();
@@ -28,9 +32,20 @@
   let nextMonthEndDay: Date;
   let daysInNextMonth: number;
 
+  // Selected date, or daterange start:
   let selectedDay: number;
   let selectedMonth: number;
   let selectedYear: number;
+  let selectedDate: Date;
+
+  // Daterange:
+  let selectedDaySec: number;
+  let selectedMonthSec: number;
+  let selectedYearSec: number;
+  let selectedDateSec: Date;
+
+  type CurrentSelector = 'primary' | 'secondary';
+  let currentSelector: CurrentSelector = 'primary';
 
 
   let currentMonthDays: IDays[][];
@@ -52,7 +67,21 @@
     daysInNextMonth = new Date(nextYear, nextMonth+1, 0).getDate();
 
     currentMonthDays = refreshCalendarGrid(currentMonthStartDay, daysInPreviousMonth, daysInCurrentMonth);
-    
+
+    if (selectedDay && selectedMonth && selectedYear) {
+      selectedDate = new Date(selectedYear, selectedMonth+1, selectedDay);
+    }
+    if (selectedDaySec && selectedMonthSec && selectedYearSec) {
+      selectedDateSec = new Date(selectedYearSec, selectedMonthSec+1, selectedDaySec);
+    }
+
+    if (selectedDate && selectedDateSec) {
+      console.log(isEqual(selectedDate, selectedDateSec));
+      console.log(isBefore(selectedDate, selectedDateSec));
+      console.log(isAfter(selectedDate, selectedDateSec));
+      console.log('1:', selectedDate);
+      console.log('2:', selectedDateSec);
+    }
   }
 
   const reset = (e: MouseEvent) => {
@@ -84,9 +113,27 @@
   };
 
   const setDate = (e: MouseEvent, day: number) => {
-    selectedDay = day;
-    selectedMonth = currentMonth;
-    selectedYear = currentYear;
+    if (dateRange) {
+      if (currentSelector === 'primary') {
+        selectedDay = day;
+        selectedMonth = currentMonth;
+        selectedYear = currentYear;
+        currentSelector = 'secondary';
+      } else if (currentSelector === 'secondary') {
+        selectedDaySec = day;
+        selectedMonthSec = currentMonth;
+        selectedYearSec = currentYear;
+        currentSelector = 'primary';
+      }
+    } else {
+      selectedDay = day;
+      selectedMonth = currentMonth;
+      selectedYear = currentYear;
+    }
+  }
+
+  const dateIsInRange = (date: Date) => {
+    console.log()
   }
 
 </script>
@@ -112,8 +159,9 @@
               day ${day.dayType} 
               ${(actualMonth === currentMonth && actualYear === currentYear && actualDay === day.dateNumber && day.dayType === 'currentMonth') ? 'today' : ''}
               ${(selectedMonth === currentMonth && selectedYear === currentYear && selectedDay === day.dateNumber && day.dayType === 'currentMonth') ? 'selected-day' : ''}
+              ${(selectedMonthSec === currentMonth && selectedYearSec === currentYear && selectedDaySec === day.dateNumber && day.dayType === 'currentMonth') ? 'selected-day-sec' : ''}
             `}
-            on:mouseup={(e) => { setDate(e, day.dateNumber) }}
+            on:mouseup={(e) => { day.dayType === 'currentMonth' && setDate(e, day.dateNumber) }}
           >
             {day.dateNumber}
           </div>
@@ -203,9 +251,20 @@
       color: green;
     }
 
+    &.selected-day-sec {
+      background-color: green;
+      color: white;
+       &:hover {
+        background: green;
+      }
+    }
+
     &.selected-day {
       background-color: green;
       color: white;
+       &:hover {
+        background: green;
+      }
     }
 
     &.previousMonth, &.nextMonth {

@@ -6,6 +6,9 @@
 <div class="container">
   <div class="box">
     <h1>Calendar showcase</h1>
-    <Calendar />
+    <div style="display: flex; gap: .5rem">
+      <Calendar />
+      <Calendar dateRange={true} />
+    </div>
   </div>
 </div>
