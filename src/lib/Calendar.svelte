@@ -3,11 +3,12 @@
   import { 
     weekdays, getPreviousMonth, getNextMonth,getPreviousYear, getNextYear, 
     getPreviousDecade, getNextDecade, refreshCalendarGrid, dateIsInRange } from './Calendar';
-  import type { IDays } from './Calendar';
+  import type { IDays, DayType } from './Calendar';
   import MonthAndYear from './MonthAndYear.svelte';
 
 
   export let dateRange = false;
+
 
   const d = new Date();
   let actualMonth = d.getMonth();
@@ -69,20 +70,12 @@
 
     currentMonthDays = refreshCalendarGrid(currentMonthStartDay, daysInPreviousMonth, daysInCurrentMonth);
 
-    if (selectedDay && selectedMonth && selectedYear) {
-      selectedDate = new Date(selectedYear, selectedMonth+1, selectedDay);
+    if (selectedDay && (selectedMonth !== undefined) && selectedYear) {
+      selectedDate = new Date(selectedYear, selectedMonth, selectedDay);
     }
-    if (selectedDaySec && selectedMonthSec && selectedYearSec) {
-      selectedDateSec = new Date(selectedYearSec, selectedMonthSec+1, selectedDaySec);
+    if (selectedDaySec && (selectedMonthSec !== undefined) && selectedYearSec) {
+      selectedDateSec = new Date(selectedYearSec, selectedMonthSec, selectedDaySec);
     }
-
-    // if (selectedDate && selectedDateSec) {
-    //   console.log(isEqual(selectedDate, selectedDateSec));
-    //   console.log(isBefore(selectedDate, selectedDateSec));
-    //   console.log(isAfter(selectedDate, selectedDateSec));
-    //   console.log('1:', selectedDate);
-    //   console.log('2:', selectedDateSec);
-    // }
   }
 
   const reset = (e: MouseEvent) => {
@@ -133,6 +126,33 @@
     }
   }
 
+  const checkDate = (day: number, dayType: DayType) => {
+
+    let currentDate: Date;
+
+    if (dayType === 'previousMonth') {
+      if (previousMonth !== 11) {
+        currentDate = new Date(currentYear, previousMonth, day);
+      } else {
+        currentDate = new Date(currentYear-1, previousMonth, day);
+      }
+    } else if (dayType === 'nextMonth') {
+      if (nextMonth !== 0) {
+        currentDate = new Date(currentYear, nextMonth, day);
+      } else {
+        currentDate = new Date(currentYear+1, nextMonth, day);
+      }
+      // if currentMonth:
+    } else {
+      currentDate = new Date(currentYear, currentMonth, day);
+    }
+
+    if (dateIsInRange(currentDate, selectedDate, selectedDateSec)) {
+      return true;
+    }
+
+    return false;
+  }
  
 
 </script>
@@ -159,6 +179,7 @@
               ${(actualMonth === currentMonth && actualYear === currentYear && actualDay === day.dateNumber && day.dayType === 'currentMonth') ? 'today' : ''}
               ${(selectedMonth === currentMonth && selectedYear === currentYear && selectedDay === day.dateNumber && day.dayType === 'currentMonth') ? 'selected-day' : ''}
               ${(selectedMonthSec === currentMonth && selectedYearSec === currentYear && selectedDaySec === day.dateNumber && day.dayType === 'currentMonth') ? 'selected-day-sec' : ''}
+              ${checkDate(day.dateNumber, day.dayType) ? 'in-range' : ''}
             `}
             on:mouseup={(e) => { day.dayType === 'currentMonth' && setDate(e, day.dateNumber) }}
           >
@@ -187,6 +208,9 @@
 
   $color-text-secondary: #B1B1B1;
   $cell-size: 40px;
+
+  $in-range-bg-100: #97C547;
+  $in-range-bg-200: #8CB93F;
 
   .description {
     font-size: .75rem;
@@ -248,6 +272,14 @@
     &.today {
       border-color: green;
       color: green;
+    }
+
+    &.in-range {
+      background-color: $in-range-bg-100;
+      color: white;
+      &:hover {
+        background-color: $in-range-bg-200;
+      }
     }
 
     &.selected-day-sec {
