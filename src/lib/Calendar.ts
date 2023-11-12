@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, isBefore, isAfter, isEqual } from 'date-fns';
 
 
 export const weekdays = [{
@@ -122,4 +122,24 @@ export const refreshCalendarGrid = (currentMonthStartDay: Date, daysInPreviousMo
   }
 
   return currentMonthDays;
+}
+
+export const dateIsInRange = (date: Date, date1: Date, date2: Date) => {
+  if (isEqual(date1, date2)) {
+    return false;
+  }
+  
+  if (isBefore(date1, date2)) {
+    if (isBefore(date, date2) && isAfter(date, date1)) {
+      return true;
+    }
+  }
+
+  if (isBefore(date2, date1)) {
+    if (isBefore(date, date1) && isAfter(date, date2)) {
+      return true;
+    }
+  }
+
+  return false;
 }

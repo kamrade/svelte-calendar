@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { startOfMonth, endOfMonth, isBefore, isAfter, isEqual } from 'date-fns';
-  import { weekdays, getPreviousMonth, getNextMonth,getPreviousYear, getNextYear, getPreviousDecade, getNextDecade, refreshCalendarGrid } from './Calendar';
+  import { startOfMonth, endOfMonth } from 'date-fns';
+  import { 
+    weekdays, getPreviousMonth, getNextMonth,getPreviousYear, getNextYear, 
+    getPreviousDecade, getNextDecade, refreshCalendarGrid, dateIsInRange } from './Calendar';
   import type { IDays } from './Calendar';
   import MonthAndYear from './MonthAndYear.svelte';
 
 
   export let dateRange = false;
-
 
   const d = new Date();
   let actualMonth = d.getMonth();
@@ -75,13 +76,13 @@
       selectedDateSec = new Date(selectedYearSec, selectedMonthSec+1, selectedDaySec);
     }
 
-    if (selectedDate && selectedDateSec) {
-      console.log(isEqual(selectedDate, selectedDateSec));
-      console.log(isBefore(selectedDate, selectedDateSec));
-      console.log(isAfter(selectedDate, selectedDateSec));
-      console.log('1:', selectedDate);
-      console.log('2:', selectedDateSec);
-    }
+    // if (selectedDate && selectedDateSec) {
+    //   console.log(isEqual(selectedDate, selectedDateSec));
+    //   console.log(isBefore(selectedDate, selectedDateSec));
+    //   console.log(isAfter(selectedDate, selectedDateSec));
+    //   console.log('1:', selectedDate);
+    //   console.log('2:', selectedDateSec);
+    // }
   }
 
   const reset = (e: MouseEvent) => {
@@ -132,9 +133,7 @@
     }
   }
 
-  const dateIsInRange = (date: Date) => {
-    console.log()
-  }
+ 
 
 </script>
 
