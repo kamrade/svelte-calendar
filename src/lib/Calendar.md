@@ -1,10 +1,6 @@
 # Todolist
 
-- Refactoring
-- Styling options (css variables? css in js?)
-- year list additional buttons
-
-## Options
-
-- week starts from
-- value + onChange
+- value + onChange mechanism
+- week starts from ...
+- styling options (css variables? css in js?)
+- additional buttons for change year
