@@ -8,6 +8,9 @@
 
 
   export let dateRange = false;
+  export let dateStart: Date | undefined;
+  export let dateEnd: Date | undefined = dateRange ? undefined : new Date();
+  export let onChange: (dateStart?: Date, dateEnd?: Date) => any;
 
 
   const d = new Date();
@@ -35,16 +38,16 @@
   let daysInNextMonth: number;
 
   // Selected date, or daterange start:
-  let selectedDay: number;
-  let selectedMonth: number;
-  let selectedYear: number;
-  let selectedDate: Date;
+  let selectedDate: Date | undefined = dateStart;
+  let selectedDay: number | undefined = dateStart && dateStart.getDate();
+  let selectedMonth: number | undefined = dateStart && dateStart.getMonth();
+  let selectedYear: number | undefined = dateStart && dateStart.getFullYear();
 
   // Daterange:
-  let selectedDaySec: number;
-  let selectedMonthSec: number;
-  let selectedYearSec: number;
-  let selectedDateSec: Date;
+  let selectedDateSec: Date | undefined = dateRange ? dateEnd : undefined;
+  let selectedDaySec: number | undefined = dateRange ? dateEnd && dateEnd.getDate() : undefined;
+  let selectedMonthSec: number | undefined = dateRange ? dateEnd && dateEnd.getMonth() : undefined;
+  let selectedYearSec: number | undefined = dateRange ? dateEnd && dateEnd.getFullYear() : undefined;
 
   type CurrentSelector = 'primary' | 'secondary';
   let currentSelector: CurrentSelector = 'primary';
@@ -76,6 +79,8 @@
     if (selectedDaySec && (selectedMonthSec !== undefined) && selectedYearSec) {
       selectedDateSec = new Date(selectedYearSec, selectedMonthSec, selectedDaySec);
     }
+
+    onChange && onChange(selectedDate, selectedDateSec);
   }
 
   const reset = (e: MouseEvent) => {
