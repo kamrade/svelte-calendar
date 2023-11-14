@@ -242,7 +242,9 @@
     border-radius: 12px;
     box-shadow: 0 0 24px rgba(0,0,0,0.1);
     padding: 1rem;
-    width: $cell-size * 7 + 7 * 2;
+    width: $cell-size * 7 + 7 * 2 + 16 * 2;
+    // width: 326px;
+    box-sizing: border-box;
   }
 
   .month-view {
@@ -261,6 +263,7 @@
     font-size: .75rem;
     text-align: center;
     color: $color-text-secondary;
+    border: 1px solid transparent;
   }
 
   .day {
