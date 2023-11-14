@@ -1,17 +1,20 @@
-# create-svelte
+# Svelte Date (Range) Picker
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Simple and reusable date (range) picker. Project still in development.
+It will be ready for use very soon.
 
-## Creating a project
+## Installation
 
-If you're seeing this, you've probably already done this step. Congrats!
+The package can be installed via npm:
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
+npm install @kamrade/svelte-datepicker --save
+```
 
-# create a new project in my-app
-npm create svelte@latest my-app
+or via yarn:
+
+```bash
+yarn add @kamrade/svelte-datepicker
 ```
 
 ## Developing
@@ -32,7 +35,3 @@ To create a production version of your app:
 ```bash
 npm run build
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.

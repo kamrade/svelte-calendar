@@ -184,8 +184,15 @@
             class={`
               day ${day.dayType} 
               ${(actualMonth === currentMonth && actualYear === currentYear && actualDay === day.dateNumber && day.dayType === 'currentMonth') ? 'today' : ''}
+              
               ${(selectedMonth === currentMonth && selectedYear === currentYear && selectedDay === day.dateNumber && day.dayType === 'currentMonth') ? 'selected-day' : ''}
+              ${(selectedMonth === nextMonth && selectedYear === nextYear && selectedDay === day.dateNumber && day.dayType === 'nextMonth') ? 'selected-day' : ''}
+              ${(selectedMonth === previousMonth && selectedYear === previousYear && selectedDay === day.dateNumber && day.dayType === 'previousMonth') ? 'selected-day' : ''}
+              
               ${(selectedMonthSec === currentMonth && selectedYearSec === currentYear && selectedDaySec === day.dateNumber && day.dayType === 'currentMonth') ? 'selected-day-sec' : ''}
+              ${(selectedMonthSec === nextMonth && selectedYearSec === nextYear && selectedDaySec === day.dateNumber && day.dayType === 'nextMonth') ? 'selected-day-sec' : ''}
+              ${(selectedMonthSec === previousMonth && selectedYearSec === previousYear && selectedDaySec === day.dateNumber && day.dayType === 'previousMonth') ? 'selected-day-sec' : ''}
+              
               ${checkDate(day.dateNumber, day.dayType) ? 'in-range' : ''}
             `}
             on:mouseup={(e) => { day.dayType === 'currentMonth' && setDate(e, day.dateNumber) }}
