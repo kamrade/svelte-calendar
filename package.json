@@ -1,6 +1,6 @@
 {
 	"name": "@kamrade/svelte-calendar",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"license": "MIT",
 	"engines": {
 		"node": ">=18.0.0"
