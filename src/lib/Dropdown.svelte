@@ -6,6 +6,7 @@
   export let showDropdown = false;
   export let hideDropdown: () => void;
   export let clickOutside = true;
+  export let uniqID: string;
 
   onMount(() => {
     if (clickOutside) {
@@ -20,12 +21,12 @@
   });
 
   const handleClickOutside = (event: MouseEvent) => {
-    clickOutsideHandler(event, 'Dropdown', () => hideDropdown());
+    clickOutsideHandler(event, uniqID, () => hideDropdown());
   }
 
 </script>
 
-<div class={`Dropdown ${showDropdown ? 'visible' : 'hidden'}`} >
+<div class={`Dropdown ${showDropdown ? 'visible' : 'hidden'}`} id={uniqID}>
   <slot name='DropdownContent'></slot>
 </div>
 

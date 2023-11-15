@@ -5,6 +5,8 @@
   import Calendar from '$lib/Calendar.svelte';
   import Dropdown from '$lib/Dropdown.svelte';
 
+  export let uniqID: string;
+
   onMount(() => {
     document.addEventListener('mousedown', handleClickOutside);
   });
@@ -70,7 +72,7 @@
   </button>
 
   <div class="dropdown-wrapper">
-    <Dropdown {showDropdown} hideDropdown={() => showDropdown = false} clickOutside={false}>
+    <Dropdown {showDropdown} hideDropdown={() => showDropdown = false} clickOutside={false} {uniqID}>
       <div slot="DropdownContent">
         <div>
           <Calendar 
