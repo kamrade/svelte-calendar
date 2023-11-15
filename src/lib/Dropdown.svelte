@@ -5,9 +5,12 @@
 
   export let showDropdown = false;
   export let hideDropdown: () => void;
+  export let clickOutside = true;
 
   onMount(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    if (clickOutside) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
   });
 
   onDestroy(() => {
@@ -22,7 +25,7 @@
 
 </script>
 
-<div class={`Dropdown ${showDropdown ? 'visible' : 'hidden'}`}>
+<div class={`Dropdown ${showDropdown ? 'visible' : 'hidden'}`} >
   <slot name='DropdownContent'></slot>
 </div>
 
