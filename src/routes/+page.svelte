@@ -3,7 +3,7 @@
   import '../style/main.scss';
 
   const changeDateHandler = (dateStart?: Date, dateEnd?: Date) => {
-    console.log("Date: ", dateStart, dateEnd);
+
   }
 
 
@@ -11,15 +11,23 @@
 
 <div class="container">
   <div class="box">
-    <h1>Calendar showcase</h1>
-    <div style="display: flex; gap: .5rem">
-      <Calendar dateStart={new Date(2023, 10, 2)} onChange={changeDateHandler} />
-      <Calendar
-        dateRange={true}
-        dateStart={new Date(2023, 10, 2)}
-        dateEnd={new Date(2023, 10, 10)}
-        onChange={changeDateHandler}
-      />
+
+    <h1 style="margin-bottom: 2rem">Calendar showcase</h1>
+
+    <div class="panel">
+      <div>
+        <h2>Date picker panel</h2>
+        <Calendar dateStart={new Date(2023, 10, 2)} onChange={changeDateHandler} />
+      </div>
+      <div>
+        <h2>Date-range picker panel</h2>
+        <Calendar
+          dateRange={true}
+          dateStart={new Date(2023, 10, 2)}
+          dateEnd={new Date(2023, 10, 10)}
+          onChange={changeDateHandler}
+        />
+      </div>
     </div>
   </div>
 
@@ -34,5 +42,8 @@
 
 
 <style lang="scss">
-  
+  .panel {
+    display: flex;
+    gap: 2rem;
+  }
 </style>
