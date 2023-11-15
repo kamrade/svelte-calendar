@@ -1,7 +1,7 @@
 <script lang='ts'>
   import { browser } from '$app/environment';
   import { onMount, onDestroy } from 'svelte';
-  import { clickOutsideHandler } from './utils/click-outside-handler';
+  import { clickOutsideHandler } from '$lib/utils';
 
   export let showDropdown = false;
   export let hideDropdown: () => void;
@@ -12,13 +12,21 @@
     if (clickOutside) {
       document.addEventListener('mousedown', handleClickOutside);
     }
+    document.addEventListener('keydown', handleTabKey);
   });
 
   onDestroy(() => {
     if (browser) {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleTabKey);
     }
   });
+
+  const handleTabKey = (e: KeyboardEvent) => {
+    if (e.key === 'Tab') {
+      hideDropdown();
+    }
+  }
 
   const handleClickOutside = (event: MouseEvent) => {
     clickOutsideHandler(event, uniqID, () => hideDropdown());

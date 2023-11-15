@@ -23,8 +23,12 @@
     </div>
   </div>
 
-  <DateRangePicker uniqID='dropdown-001' />
-  <DateRangePicker uniqID='dropdown-002'/>
+  <div style="margin-bottom: 1rem; width: 280px;">
+    <DateRangePicker uniqID='dropdown-001' name='dropdown-001' />
+  </div>
+  <div style="margin-bottom: 1rem; width: 280px;">
+    <DateRangePicker uniqID='dropdown-002' name='dropdown-002'/>
+  </div>
 
 </div>
 

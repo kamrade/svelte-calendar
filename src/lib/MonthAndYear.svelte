@@ -9,7 +9,7 @@
 
 <div class='month-and-year-wrapper'>
   <div class="buttons-wrapper">
-    <button class='change-month-button' on:mouseup={prev} title="Pres Shift or Alt to swith year or decade">
+    <button class='change-month-button' on:mouseup={prev} title="Pres Shift or Alt to swith year or decade" tabindex="-1">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M9.02332 9.99999L13.1483 14.125L11.97 15.3033L6.66666 9.99999L11.97 4.69666L13.1483 5.87499L9.02332 9.99999Z" fill="#323232" />
       </svg>
@@ -22,7 +22,7 @@
   </div>
 
   <div class="buttons-wrapper">
-    <button class='change-month-button' on:mouseup={next} title="Pres Shift or Alt to swith year or decade">
+    <button class='change-month-button' on:mouseup={next} title="Pres Shift or Alt to swith year or decade" tabindex="-1">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M10.9767 9.99999L6.85168 5.87499L8.03002 4.69666L13.3334 9.99999L8.03002 15.3033L6.85168 14.125L10.9767 9.99999Z" fill="#323232" />
       </svg>
