@@ -3,7 +3,6 @@
   import Dropdown from '$lib/Dropdown.svelte';
   import '../style/main.scss';
 
-
   const changeDateHandler = (dateStart?: Date, dateEnd?: Date) => {
     console.log("Date: ", dateStart, dateEnd);
   }
