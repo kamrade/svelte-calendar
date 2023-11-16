@@ -11,6 +11,7 @@
 - week starts from ...
 - styling options (css variables? css in js?)
 - additional buttons for change year
+- if dateEnd, than we don't need dateRange flag
 
 # DateRangePicker
 

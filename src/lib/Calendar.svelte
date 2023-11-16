@@ -1,8 +1,16 @@
 <script lang="ts">
   import { startOfMonth, endOfMonth } from 'date-fns';
   import { 
-    weekdays, getPreviousMonth, getNextMonth,getPreviousYear, getNextYear, 
-    getPreviousDecade, getNextDecade, refreshCalendarGrid, dateIsInRange } from './Calendar';
+    weekdays,
+    getPreviousMonth,
+    getNextMonth,
+    getPreviousYear,
+    getNextYear,
+    getPreviousDecade,
+    getNextDecade,
+    refreshCalendarGrid,
+    dateIsInRange
+  } from './Calendar';
   import type { IDays, DayType } from './Calendar';
   import MonthAndYear from './MonthAndYear.svelte';
 
@@ -37,14 +45,14 @@
   let nextMonthEndDay: Date;
   let daysInNextMonth: number;
 
-  // Selected date, or daterange start:
-  let selectedDate: Date | undefined = dateStart;
+  // Selected date, or date-range start:
+  // let selectedDate: Date | undefined = dateStart;
   let selectedDay: number | undefined = dateStart && dateStart.getDate();
   let selectedMonth: number | undefined = dateStart && dateStart.getMonth();
   let selectedYear: number | undefined = dateStart && dateStart.getFullYear();
 
-  // Daterange:
-  let selectedDateSec: Date | undefined = dateRange ? dateEnd : undefined;
+  // Date-range:
+  // let selectedDateSec: Date | undefined = dateRange ? dateEnd : undefined;
   let selectedDaySec: number | undefined = dateRange ? dateEnd && dateEnd.getDate() : undefined;
   let selectedMonthSec: number | undefined = dateRange ? dateEnd && dateEnd.getMonth() : undefined;
   let selectedYearSec: number | undefined = dateRange ? dateEnd && dateEnd.getFullYear() : undefined;
@@ -57,6 +65,7 @@
   
 
   $: {
+    console.log('reactive');
     daysInCurrentMonth = new Date(currentYear, currentMonth+1, 0).getDate();
     currentMonthStartDay = startOfMonth(new Date(currentYear, currentMonth+1, 0));
     currentMonthEndDay = endOfMonth(new Date(currentYear, currentMonth+1, 0));
@@ -73,16 +82,21 @@
 
     currentMonthDays = refreshCalendarGrid(currentMonthStartDay, daysInPreviousMonth, daysInCurrentMonth);
 
-    if (selectedDay && (selectedMonth !== undefined) && selectedYear) {
-      selectedDate = new Date(selectedYear, selectedMonth, selectedDay);
+    if (dateRange) {
+      selectedDay = dateStart?.getDate();
+      selectedMonth = dateStart?.getMonth();
+      selectedYear = dateStart?.getFullYear();
+      selectedDaySec = dateEnd?.getDate();
+      selectedMonthSec = dateEnd?.getMonth();
+      selectedYearSec = dateEnd?.getFullYear();
+    } else {
+      selectedDay = dateStart?.getDate();
+      selectedMonth = dateStart?.getMonth();
+      selectedYear = dateStart?.getFullYear();
     }
-    if (selectedDaySec && (selectedMonthSec !== undefined) && selectedYearSec) {
-      selectedDateSec = new Date(selectedYearSec, selectedMonthSec, selectedDaySec);
-    }
-
-    onChange && onChange(selectedDate, selectedDateSec);
   }
 
+  // reset view to current month
   const reset = (e: MouseEvent) => {
     if (e.altKey) {
       currentMonth = actualMonth;
@@ -90,6 +104,7 @@
     }
   }
 
+  // click previous
   const prev = (e: MouseEvent) => {
     if (e.shiftKey) {
       [currentMonth, currentYear] = getPreviousYear(currentMonth, currentYear);
@@ -101,6 +116,7 @@
     
   };
 
+  // click next
   const next = (e: MouseEvent) => {
     if (e.shiftKey) {
       [currentMonth, currentYear] = getNextYear(currentMonth, currentYear);
@@ -111,27 +127,25 @@
     }
   };
 
-  // mouse click handler. Set daterange
+  // mouse click handler. Set date-range
   const setDate = (e: MouseEvent, day: number) => {
     if (dateRange) {
       if (currentSelector === 'primary') {
-        selectedDay = day;
-        selectedMonth = currentMonth;
-        selectedYear = currentYear;
+        let selectedDatePrimary = new Date(currentYear, currentMonth, day);
+        onChange && onChange(selectedDatePrimary, dateEnd);
         currentSelector = 'secondary';
       } else if (currentSelector === 'secondary') {
-        selectedDaySec = day;
-        selectedMonthSec = currentMonth;
-        selectedYearSec = currentYear;
+        let selectedDateSecondary = new Date(currentYear, currentMonth, day);
+        onChange && onChange(dateStart, selectedDateSecondary);
         currentSelector = 'primary';
       }
     } else {
-      selectedDay = day;
-      selectedMonth = currentMonth;
-      selectedYear = currentYear;
+      let selectedDate = new Date(currentYear, currentMonth, day);
+      onChange && onChange(selectedDate);
     }
   }
 
+  // Used for appearance of each date
   const checkDate = (day: number, dayType: DayType) => {
     if (dateRange) {
       let currentDate: Date;
@@ -153,8 +167,10 @@
         currentDate = new Date(currentYear, currentMonth, day);
       }
 
-      if (dateIsInRange(currentDate, selectedDate, selectedDateSec)) {
-        return true;
+      if (dateStart && dateEnd) {
+        if (dateIsInRange(currentDate, dateStart, dateEnd)) {
+          return true;
+        }
       }
     }
 

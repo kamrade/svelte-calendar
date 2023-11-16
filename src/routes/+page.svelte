@@ -3,15 +3,15 @@
   import '../style/main.scss';
 
   let datePanel1 = new Date(2023, 10, 3);
-  const changeDateHandler = (dateStart?: Date, dateEnd?: Date) => {
+  const changeDateHandler = (dateStart?: Date) => {
     datePanel1 = dateStart;
   }
 
-  let dateStart = new Date(1999, 8, 20);
-  let dateEnd = new Date(2023, 10, 20);
-  let onChange = (date1: Date, date2: Date) => {
-    dateStart = date1;
-    dateEnd = date2;
+  let datePrimary: Date | undefined = new Date(1999, 8, 20);
+  let dateSecondary: Date | undefined = new Date(2023, 10, 20);
+  let onChange = (date1?: Date, date2?: Date) => {
+    datePrimary = date1;
+    dateSecondary = date2;
   }
 
 </script>
@@ -35,19 +35,30 @@
         <h2>Date-range picker panel 1</h2>
         <Calendar
           dateRange={true}
-          dateStart={new Date(2023, 10, 2)}
-          dateEnd={new Date(2023, 10, 10)}
-          onChange={changeDateHandler}
+          dateStart={datePrimary}
+          dateEnd={dateSecondary}
+          onChange={onChange}
         />
       </div>
+
+      <div>
+        <h2>Date-range picker panel 1</h2>
+        <Calendar
+            dateRange={true}
+            dateStart={datePrimary}
+            dateEnd={dateSecondary}
+            onChange={onChange}
+        />
+      </div>
+
     </div>
   </div>
 
   <div style="margin-bottom: 1rem; width: 280px;">
-    <DateRangePicker uniqID='dropdown-001' name='dropdown-001' dateStartIn={dateStart} dateEndIn={dateEnd} {onChange} />
+    <DateRangePicker uniqID='dropdown-001' name='dropdown-001' dateStartIn={datePrimary} dateEndIn={dateSecondary} onChange={onChange} />
   </div>
   <div style="margin-bottom: 1rem; width: 280px;">
-    <DateRangePicker uniqID='dropdown-002' name='dropdown-002' dateStartIn={dateStart} dateEndIn={dateEnd} {onChange}/>
+    <DateRangePicker uniqID='dropdown-002' name='dropdown-002' dateStartIn={datePrimary} dateEndIn={dateSecondary} onChange={onChange}/>
   </div>
 
 </div>
