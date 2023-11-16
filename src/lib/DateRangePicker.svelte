@@ -5,13 +5,16 @@
   import Calendar from '$lib/Calendar.svelte';
   import Dropdown from '$lib/Dropdown.svelte';
 
+  
   export let uniqID: string;
   export let name: string;
   export let dateStartIn: Date | undefined;
   export let dateEndIn: Date | undefined;
   export let onChange: (dateStart?: Date, dateEnd?: Date) => void;
 
+
   let isFocused = false;
+
 
   let dateStart: Date | undefined = dateStartIn;
   let dateEnd: Date | undefined = dateEndIn;

@@ -23,11 +23,11 @@
 
     <div class="panel">
       <div>
-        <h2>Date picker panel</h2>
+        <h2>Date picker panel 1</h2>
         <Calendar datePrimary={dateSingle} onChange={changeDateHandler} />
       </div>
       <div>
-        <h2>Date picker panel</h2>
+        <h2>Date picker panel 2</h2>
         <Calendar datePrimary={dateSingle} onChange={changeDateHandler} />
       </div>
 
@@ -42,7 +42,7 @@
       </div>
 
       <div>
-        <h2>Date-range picker panel 1</h2>
+        <h2>Date-range picker panel 2</h2>
         <Calendar
             dateRange={true}
             datePrimary={datePrimary}
@@ -67,6 +67,7 @@
 <style lang="scss">
   .panel {
     display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
   }
 </style>
