@@ -97,8 +97,8 @@
         <div>
           <Calendar 
             dateRange={true} 
-            dateStart={dateStart} 
-            dateEnd={dateEnd} 
+            datePrimary={dateStart}
+            dateSecondary={dateEnd}
             onChange={changeDateHandler}
           />
         </div>

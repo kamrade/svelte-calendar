@@ -16,9 +16,9 @@
 
 
   export let dateRange = false;
-  export let dateStart: Date | undefined;
-  export let dateEnd: Date | undefined = dateRange ? undefined : new Date();
-  export let onChange: (dateStart?: Date, dateEnd?: Date) => void;
+  export let datePrimary: Date | undefined;
+  export let dateSecondary: Date | undefined = dateRange ? undefined : new Date();
+  export let onChange: (datePrimary?: Date, dateSecondary?: Date) => void;
 
 
   const d = new Date();
@@ -46,16 +46,16 @@
   let daysInNextMonth: number;
 
   // Selected date, or date-range start:
-  // let selectedDate: Date | undefined = dateStart;
-  let selectedDay: number | undefined = dateStart && dateStart.getDate();
-  let selectedMonth: number | undefined = dateStart && dateStart.getMonth();
-  let selectedYear: number | undefined = dateStart && dateStart.getFullYear();
+  // let selectedDate: Date | undefined = datePrimary;
+  let selectedDayPrimary: number | undefined = datePrimary && datePrimary.getDate();
+  let selectedMonthPrimary: number | undefined = datePrimary && datePrimary.getMonth();
+  let selectedYearPrimary: number | undefined = datePrimary && datePrimary.getFullYear();
 
   // Date-range:
   // let selectedDateSec: Date | undefined = dateRange ? dateEnd : undefined;
-  let selectedDaySec: number | undefined = dateRange ? dateEnd && dateEnd.getDate() : undefined;
-  let selectedMonthSec: number | undefined = dateRange ? dateEnd && dateEnd.getMonth() : undefined;
-  let selectedYearSec: number | undefined = dateRange ? dateEnd && dateEnd.getFullYear() : undefined;
+  let selectedDaySec: number | undefined = dateRange ? dateSecondary && dateSecondary.getDate() : undefined;
+  let selectedMonthSec: number | undefined = dateRange ? dateSecondary && dateSecondary.getMonth() : undefined;
+  let selectedYearSec: number | undefined = dateRange ? dateSecondary && dateSecondary.getFullYear() : undefined;
 
   type CurrentSelector = 'primary' | 'secondary';
   let currentSelector: CurrentSelector = 'primary';
@@ -65,7 +65,6 @@
   
 
   $: {
-    console.log('reactive');
     daysInCurrentMonth = new Date(currentYear, currentMonth+1, 0).getDate();
     currentMonthStartDay = startOfMonth(new Date(currentYear, currentMonth+1, 0));
     currentMonthEndDay = endOfMonth(new Date(currentYear, currentMonth+1, 0));
@@ -83,16 +82,16 @@
     currentMonthDays = refreshCalendarGrid(currentMonthStartDay, daysInPreviousMonth, daysInCurrentMonth);
 
     if (dateRange) {
-      selectedDay = dateStart?.getDate();
-      selectedMonth = dateStart?.getMonth();
-      selectedYear = dateStart?.getFullYear();
-      selectedDaySec = dateEnd?.getDate();
-      selectedMonthSec = dateEnd?.getMonth();
-      selectedYearSec = dateEnd?.getFullYear();
+      selectedDayPrimary = datePrimary?.getDate();
+      selectedMonthPrimary = datePrimary?.getMonth();
+      selectedYearPrimary = datePrimary?.getFullYear();
+      selectedDaySec = dateSecondary?.getDate();
+      selectedMonthSec = dateSecondary?.getMonth();
+      selectedYearSec = dateSecondary?.getFullYear();
     } else {
-      selectedDay = dateStart?.getDate();
-      selectedMonth = dateStart?.getMonth();
-      selectedYear = dateStart?.getFullYear();
+      selectedDayPrimary = datePrimary?.getDate();
+      selectedMonthPrimary = datePrimary?.getMonth();
+      selectedYearPrimary = datePrimary?.getFullYear();
     }
   }
 
@@ -113,7 +112,6 @@
     } else {
       [currentMonth, currentYear] = getPreviousMonth(currentMonth, currentYear);
     }
-    
   };
 
   // click next
@@ -132,11 +130,11 @@
     if (dateRange) {
       if (currentSelector === 'primary') {
         let selectedDatePrimary = new Date(currentYear, currentMonth, day);
-        onChange && onChange(selectedDatePrimary, dateEnd);
+        onChange && onChange(selectedDatePrimary, dateSecondary);
         currentSelector = 'secondary';
       } else if (currentSelector === 'secondary') {
         let selectedDateSecondary = new Date(currentYear, currentMonth, day);
-        onChange && onChange(dateStart, selectedDateSecondary);
+        onChange && onChange(datePrimary, selectedDateSecondary);
         currentSelector = 'primary';
       }
     } else {
@@ -167,8 +165,8 @@
         currentDate = new Date(currentYear, currentMonth, day);
       }
 
-      if (dateStart && dateEnd) {
-        if (dateIsInRange(currentDate, dateStart, dateEnd)) {
+      if (datePrimary && dateSecondary) {
+        if (dateIsInRange(currentDate, datePrimary, dateSecondary)) {
           return true;
         }
       }
@@ -196,18 +194,44 @@
     <div class='month-view'>
       {#each currentMonthDays as week, index}
         {#each week as day, index}
-          <div 
+          <!-- TODO: Classname can be shortened with some generic function -->
+          <div
             class={`
               day ${day.dayType} 
-              ${(actualMonth === currentMonth && actualYear === currentYear && actualDay === day.dateNumber && day.dayType === 'currentMonth') ? 'today' : ''}
+              ${(actualMonth === currentMonth
+                && actualYear === currentYear
+                && actualDay === day.dateNumber
+                && day.dayType === 'currentMonth') ? 'today' : ''}
               
-              ${(selectedMonth === currentMonth && selectedYear === currentYear && selectedDay === day.dateNumber && day.dayType === 'currentMonth') ? 'selected-day' : ''}
-              ${(selectedMonth === nextMonth && selectedYear === nextYear && selectedDay === day.dateNumber && day.dayType === 'nextMonth') ? 'selected-day' : ''}
-              ${(selectedMonth === previousMonth && selectedYear === previousYear && selectedDay === day.dateNumber && day.dayType === 'previousMonth') ? 'selected-day' : ''}
+              ${(selectedMonthPrimary === currentMonth
+                && selectedYearPrimary === currentYear
+                && selectedDayPrimary === day.dateNumber
+                && day.dayType === 'currentMonth') ? 'selected-day' : ''}
+
+              ${(selectedMonthPrimary === nextMonth
+                && selectedYearPrimary === nextYear
+                && selectedDayPrimary === day.dateNumber
+                && day.dayType === 'nextMonth') ? 'selected-day' : ''}
+
+              ${(selectedMonthPrimary === previousMonth
+                && selectedYearPrimary === previousYear
+                && selectedDayPrimary === day.dateNumber
+                && day.dayType === 'previousMonth') ? 'selected-day' : ''}
               
-              ${(selectedMonthSec === currentMonth && selectedYearSec === currentYear && selectedDaySec === day.dateNumber && day.dayType === 'currentMonth') ? 'selected-day-sec' : ''}
-              ${(selectedMonthSec === nextMonth && selectedYearSec === nextYear && selectedDaySec === day.dateNumber && day.dayType === 'nextMonth') ? 'selected-day-sec' : ''}
-              ${(selectedMonthSec === previousMonth && selectedYearSec === previousYear && selectedDaySec === day.dateNumber && day.dayType === 'previousMonth') ? 'selected-day-sec' : ''}
+              ${(selectedMonthSec === currentMonth
+                && selectedYearSec === currentYear
+                && selectedDaySec === day.dateNumber
+                && day.dayType === 'currentMonth') ? 'selected-day-sec' : ''}
+
+              ${(selectedMonthSec === nextMonth
+                && selectedYearSec === nextYear
+                && selectedDaySec === day.dateNumber
+                && day.dayType === 'nextMonth') ? 'selected-day-sec' : ''}
+
+              ${(selectedMonthSec === previousMonth
+                && selectedYearSec === previousYear
+                && selectedDaySec === day.dateNumber
+                && day.dayType === 'previousMonth') ? 'selected-day-sec' : ''}
               
               ${checkDate(day.dateNumber, day.dayType) ? 'in-range' : ''}
             `}

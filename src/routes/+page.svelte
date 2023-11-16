@@ -2,9 +2,9 @@
   import { Calendar, DateRangePicker } from '../lib';
   import '../style/main.scss';
 
-  let datePanel1 = new Date(2023, 10, 3);
+  let dateSingle = new Date(2023, 10, 3);
   const changeDateHandler = (dateStart?: Date) => {
-    datePanel1 = dateStart;
+    dateSingle = dateStart;
   }
 
   let datePrimary: Date | undefined = new Date(1999, 8, 20);
@@ -24,19 +24,19 @@
     <div class="panel">
       <div>
         <h2>Date picker panel</h2>
-        <Calendar dateStart={datePanel1} onChange={changeDateHandler} />
+        <Calendar datePrimary={dateSingle} onChange={changeDateHandler} />
       </div>
       <div>
         <h2>Date picker panel</h2>
-        <Calendar dateStart={datePanel1} onChange={changeDateHandler} />
+        <Calendar datePrimary={dateSingle} onChange={changeDateHandler} />
       </div>
 
       <div>
         <h2>Date-range picker panel 1</h2>
         <Calendar
           dateRange={true}
-          dateStart={datePrimary}
-          dateEnd={dateSecondary}
+          datePrimary={datePrimary}
+          dateSecondary={dateSecondary}
           onChange={onChange}
         />
       </div>
@@ -45,8 +45,8 @@
         <h2>Date-range picker panel 1</h2>
         <Calendar
             dateRange={true}
-            dateStart={datePrimary}
-            dateEnd={dateSecondary}
+            datePrimary={datePrimary}
+            dateSecondary={dateSecondary}
             onChange={onChange}
         />
       </div>
