@@ -21,7 +21,7 @@ export const weekdays = [{
 export const weekdaysArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 
-export const monthes = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+export const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
 
 export const getPreviousMonth = (currentMonth: number, currentYear: number): number[] => {
@@ -71,11 +71,11 @@ export interface IDays {
 
 export const refreshCalendarGrid = (currentMonthStartDay: Date, daysInPreviousMonth: number, daysInCurrentMonth: number) => {
 
-  let currentMonthStartDayNumber = getWeekday(currentMonthStartDay);
-  let weeks = Math.trunc((daysInCurrentMonth - (7 - currentMonthStartDayNumber)) / 7);
+  const currentMonthStartDayNumber = getWeekday(currentMonthStartDay);
+  const weeks = Math.trunc((daysInCurrentMonth - (7 - currentMonthStartDayNumber)) / 7);
   let max = 0;
   let nextMax = 1;
-  let currentMonthDays: IDays[][] = [[],[],[],[],[],[]];
+  const currentMonthDays: IDays[][] = [[],[],[],[],[],[]];
 
   for (let i = 0; i < 6; i++) {
     if (i === 0) {

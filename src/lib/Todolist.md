@@ -1,3 +1,7 @@
+# Click outside helper
+
+# Dropdown
+
 # Calendar
 
 + value + onChange mechanism
@@ -10,4 +14,4 @@
 
 # DateRangePicker
 
-- value + onChange mechanism
++ value + onChange mechanism

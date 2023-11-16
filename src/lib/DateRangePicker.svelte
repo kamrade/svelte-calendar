@@ -7,11 +7,15 @@
 
   export let uniqID: string;
   export let name: string;
+  export let dateStartIn: Date | undefined;
+  export let dateEndIn: Date | undefined;
+  export let onChange: (dateStart?: Date, dateEnd?: Date) => void;
 
   let isFocused = false;
 
-  let dateStart: Date | undefined;
-  let dateEnd: Date | undefined;
+  let dateStart: Date | undefined = dateStartIn;
+  let dateEnd: Date | undefined = dateEndIn;
+
   let showDropdown = false;
 
   let dateStartDate: number;
@@ -26,9 +30,10 @@
   onDestroy(() => browser && document.removeEventListener('mousedown', handleClickOutside));
   const handleClickOutside = (event: MouseEvent) => clickOutsideHandler(event, uniqID, () => showDropdown = false);
 
-  const changeDate2Handler = (date1?: Date, date2?: Date) => {
+  const changeDateHandler = (date1?: Date, date2?: Date) => {
     dateStart = date1 ? date1 : dateStart;
     dateEnd = date2 ? date2 : dateEnd;
+    onChange && onChange(dateStart, dateEnd);
   }
 
   $: {
@@ -94,7 +99,7 @@
             dateRange={true} 
             dateStart={dateStart} 
             dateEnd={dateEnd} 
-            onChange={changeDate2Handler}
+            onChange={changeDateHandler}
           />
         </div>
       </div>

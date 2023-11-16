@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import { monthes } from "./Calendar";
+  import { months } from "./Calendar";
   export let currentMonth: number;
   export let currentYear: number;
   export let prev: (e: MouseEvent) => void;
@@ -17,7 +17,7 @@
   </div>
 
   <div class="month-and-year" on:mouseup={reset} title="Meta + click: Reset month and year">
-    <div class='month'>{monthes[currentMonth]}</div>
+    <div class='month'>{months[currentMonth]}</div>
     <div class='year'>{currentYear}</div>
   </div>
 

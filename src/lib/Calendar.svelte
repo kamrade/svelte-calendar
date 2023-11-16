@@ -10,7 +10,7 @@
   export let dateRange = false;
   export let dateStart: Date | undefined;
   export let dateEnd: Date | undefined = dateRange ? undefined : new Date();
-  export let onChange: (dateStart?: Date, dateEnd?: Date) => any;
+  export let onChange: (dateStart?: Date, dateEnd?: Date) => void;
 
 
   const d = new Date();
