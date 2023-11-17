@@ -143,3 +143,56 @@ export const dateIsInRange = (date: Date, date1: Date, date2: Date) => {
 
   return false;
 }
+
+export interface ICalendarOptions {
+  textColorBase?: string;
+  textColorSecondary?: string;
+  textColorMuted?: string;
+  textColorBaseInverted?: string;
+  textColorSecondaryInverted?: string;
+  textColorPrimaryInverted?: string;
+
+  lineColorPrimary?: string;
+
+  surfaceColorBase?: string;
+  surfaceColorDateActive?: string;
+  surfaceColorDateFrame?: string;
+  surfaceColorDateSelection100?: string;
+  surfaceColorDateSelection200?: string;
+
+  spacingNull?: number;
+  spacingBase?: number;
+  spacingCalendarPadding?: number;
+  spacingDateSize?: number;
+
+  radiusNull?: number;
+  radiusDay?: number;
+  radiusPanel?: number;
+
+}
+
+export const calendarOptions: ICalendarOptions = {
+  textColorBase: "#272727",
+  textColorSecondary: "#818181",
+  textColorMuted: "#b4b4b4",
+  textColorBaseInverted: "#ffffff",
+  textColorSecondaryInverted: "rgba(255, 255, 255, 0.6)",
+  textColorPrimaryInverted: "#faff00",
+
+  lineColorPrimary: "#1b993e",
+
+  surfaceColorBase: "#ffffff",
+  surfaceColorDateActive: "#f5f8fa",
+  surfaceColorDateFrame: "#0e9233",
+  surfaceColorDateSelection100: "#25b74e",
+  surfaceColorDateSelection200: "#21b348",
+
+  spacingNull: 0,
+  spacingBase: 8,
+  spacingCalendarPadding: 24,
+  spacingDateSize: 24,
+
+  radiusNull: 0,
+  radiusDay: 0,
+  radiusPanel: 12,
+};

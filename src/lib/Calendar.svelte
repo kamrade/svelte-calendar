@@ -9,7 +9,8 @@
     getPreviousDecade,
     getNextDecade,
     refreshCalendarGrid,
-    dateIsInRange
+    dateIsInRange,
+    calendarOptions
   } from './Calendar';
   import type { IDays, DayType } from './Calendar';
   import MonthAndYear from './MonthAndYear.svelte';
@@ -19,6 +20,8 @@
   export let datePrimary: Date | undefined;
   export let dateSecondary: Date | undefined = dateRange ? undefined : new Date();
   export let onChange: (datePrimary?: Date, dateSecondary?: Date) => void;
+
+
 
 
   const d = new Date();
@@ -178,7 +181,10 @@
 
 </script>
 
-<div class='calendar'>
+<div class='calendar' style={`
+  --inRangeBg100: ${calendarOptions.surfaceColorDateSelection100};
+  --inRangeBg200: ${calendarOptions.surfaceColorDateSelection200};
+`}>
   
   <MonthAndYear {currentMonth} {currentYear} {prev} {next} {reset} />
 
@@ -263,7 +269,8 @@
   $color-text-secondary: #B1B1B1;
   $cell-size: 40px;
 
-  $in-range-bg-100: #97C547;
+  //$in-range-bg-100: #97C547;
+
   $in-range-bg-200: #8CB93F;
 
   .description {
@@ -331,10 +338,10 @@
     }
 
     &.in-range {
-      background-color: $in-range-bg-100;
+      background-color: var(--inRangeBg100);
       color: white;
       &:hover {
-        background-color: $in-range-bg-200;
+        background-color: var(--inRangeBg200);
       }
     }
 
