@@ -17,6 +17,11 @@ or via yarn:
 yarn add @kamrade/svelte-datepicker
 ```
 
+## Figma Showcase
+
+Duplicate [this](https://www.figma.com/file/4uDj3R8A2r9vXdIlkkveXl/Calendar?type=design&node-id=4%3A246&mode=design&t=vOZH9iLHEahf1MgX-1)
+figma file. Change the variables and import to your figma project. Figma variables are synchronized with package.
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:

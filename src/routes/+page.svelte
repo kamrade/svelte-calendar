@@ -2,7 +2,7 @@
   import { Calendar, DateRangePicker } from '../lib';
   import '../style/main.scss';
 
-  let dateSingle = new Date(2023, 10, 3);
+  let dateSingle: Date | undefined = new Date(2023, 10, 3);
   const changeDateHandler = (dateStart?: Date) => {
     dateSingle = dateStart;
   }
