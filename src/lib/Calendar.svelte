@@ -10,7 +10,7 @@
     getNextDecade,
     refreshCalendarGrid,
     dateIsInRange,
-    calendarOptions
+    variablesInStyle
   } from './Calendar';
   import type { IDays, DayType } from './Calendar';
   import MonthAndYear from './MonthAndYear.svelte';
@@ -20,8 +20,6 @@
   export let datePrimary: Date | undefined;
   export let dateSecondary: Date | undefined = dateRange ? undefined : new Date();
   export let onChange: (datePrimary?: Date, dateSecondary?: Date) => void;
-
-
 
 
   const d = new Date();
@@ -49,13 +47,11 @@
   let daysInNextMonth: number;
 
   // Selected date, or date-range start:
-  // let selectedDate: Date | undefined = datePrimary;
   let selectedDayPrimary: number | undefined = datePrimary && datePrimary.getDate();
   let selectedMonthPrimary: number | undefined = datePrimary && datePrimary.getMonth();
   let selectedYearPrimary: number | undefined = datePrimary && datePrimary.getFullYear();
 
   // Date-range:
-  // let selectedDateSec: Date | undefined = dateRange ? dateEnd : undefined;
   let selectedDaySec: number | undefined = dateRange ? dateSecondary && dateSecondary.getDate() : undefined;
   let selectedMonthSec: number | undefined = dateRange ? dateSecondary && dateSecondary.getMonth() : undefined;
   let selectedYearSec: number | undefined = dateRange ? dateSecondary && dateSecondary.getFullYear() : undefined;
@@ -181,10 +177,7 @@
 
 </script>
 
-<div class='calendar' style={`
-  --inRangeBg100: ${calendarOptions.surfaceColorDateSelection100};
-  --inRangeBg200: ${calendarOptions.surfaceColorDateSelection200};
-`}>
+<div class='calendar' style={variablesInStyle}>
   
   <MonthAndYear {currentMonth} {currentYear} {prev} {next} {reset} />
 
@@ -243,7 +236,9 @@
             `}
             on:mouseup={(e) => { day.dayType === 'currentMonth' && setDate(e, day.dateNumber) }}
           >
-            {day.dateNumber}
+            <div class="day-inner">
+              {day.dateNumber}
+            </div>
           </div>
         {/each}
       {/each}
@@ -262,21 +257,12 @@
 
 <style lang='scss'>
 
-  $color-bg-day-100: #F4F5F6;
-  $color-bg-day-200: #DEE1E4;
-  $color-bg-day-300: #C7CCD0;
-
-  $color-text-secondary: #B1B1B1;
   $cell-size: 40px;
 
-  //$in-range-bg-100: #97C547;
-
-  $in-range-bg-200: #8CB93F;
-
   .description {
-    font-size: .75rem;
-    color: $color-text-secondary;
-    padding: .5rem;
+    font-size: .75em;
+    color: var(--textColorSecondary);
+    padding: var(--spacingBase) 0;
 
     > svg {
       position: relative;
@@ -286,7 +272,7 @@
 
   .calendar {
     position: relative;
-    border-radius: 12px;
+    border-radius: var(--radiusPanel);
     box-shadow: 0 0 24px rgba(0,0,0,0.1);
     padding: 1rem;
     width: $cell-size * 7 + 7 * 2 + 16 * 2;
@@ -306,9 +292,9 @@
     width: $cell-size;
     height: $cell-size;
     line-height:$cell-size;
-    font-size: .75rem;
+    font-size: .75em;
     text-align: center;
-    color: $color-text-secondary;
+    color: var(--textColorSecondary);
     border: 1px solid transparent;
   }
 
@@ -316,54 +302,49 @@
     width: $cell-size;
     height: $cell-size;
     line-height: $cell-size;
-    font-size: 1rem;
+    font-size: var(--baseFontSize);
     text-align: center;
     cursor: pointer;
-    background: $color-bg-day-100;
+    background: var(--surfaceColorDateActive100);
     transition: all .1s ease-in-out;
     border: 1px solid transparent;
 
     &.currentMonth {
       &:hover {
-        background: $color-bg-day-200;
+        background: var(--surfaceColorDateActive200);
       }
       &:active {
-        background: $color-bg-day-300;
+        background: var(--surfaceColorDateActive200);
       }
     }
 
     &.today {
-      border-color: green;
-      color: green;
+      border-color: var(--lineColorPrimary);
     }
 
     &.in-range {
       background-color: var(--inRangeBg100);
-      color: white;
+      color: var(--textColorBaseInverted);
       &:hover {
         background-color: var(--inRangeBg200);
       }
     }
 
-    &.selected-day-sec {
-      background-color: green;
-      color: white;
+    &.selected-day, &.selected-day-sec {
+      background-color: var(--surfaceColorDateFrame100);
+      color: var(--textColorBaseInverted);
        &:hover {
-        background: green;
-      }
-    }
-
-    &.selected-day {
-      background-color: green;
-      color: white;
-       &:hover {
-        background: green;
+        background: var(--surfaceColorDateFrame200);
       }
     }
 
     &.previousMonth, &.nextMonth {
-      opacity: .3;
+      opacity: var(--otherMonthsOpacity);
       cursor: default;
+    }
+
+    .day-inner {
+      //width: 1.5em;
     }
     
   }

@@ -2,17 +2,19 @@
 
 # Dropdown
 
+[ ] Correct direction according to the position on the screen
+
 # Calendar
 
-+ value + onChange mechanism
-- value - only in Range
-  - can't be bigger than
-  - can't be smaller than
-- week starts from ...
-- styling options (css variables? css in js?)
-- additional buttons for change year
-- if dateEnd, than we don't need dateRange flag
+- [x] value + onChange mechanism
+- [x] styling options (css variables and js object)
+- [ ] value - only in Range
+  - [ ] can't be bigger than
+  - [ ] can't be smaller than
+- [ ] week starts from ...
+- [ ] additional buttons for change year
+- [ ] if dateEnd, than we don't need dateRange flag
 
 # DateRangePicker
 
-+ value + onChange mechanism
+- [ ] value + onChange mechanism
