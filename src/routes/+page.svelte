@@ -24,7 +24,14 @@
     <div class="panel">
       <div>
         <h2>Date picker panel 1</h2>
-        <Calendar datePrimary={dateSingle} onChange={changeDateHandler} />
+        <Calendar datePrimary={dateSingle} onChange={changeDateHandler}>
+          <span slot="previousMonth" style="color: grey">
+            Previous
+          </span>
+          <span slot="nextMonth" style="color: grey">
+            Next
+          </span>
+        </Calendar>
       </div>
       <div>
         <h2>Date picker panel 2</h2>

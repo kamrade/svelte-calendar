@@ -184,11 +184,16 @@
 
     <div class="buttons-wrapper">
       <button class='change-month-button' on:mouseup={prev} title="Pres Shift or Alt to swith year or decade" tabindex="-1">
-      <span class="change-month-button-content">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9.02332 9.99999L13.1483 14.125L11.97 15.3033L6.66666 9.99999L11.97 4.69666L13.1483 5.87499L9.02332 9.99999Z" />
-        </svg>
-      </span>
+        {#if !$$slots.previousMonth}
+          <span class="change-month-button-content">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.02332 9.99999L13.1483 14.125L11.97 15.3033L6.66666 9.99999L11.97 4.69666L13.1483 5.87499L9.02332 9.99999Z" />
+            </svg>
+          </span>
+        {:else}
+          <slot name="previousMonth"></slot>
+        {/if}
+
       </button>
     </div>
 
@@ -198,13 +203,19 @@
     </div>
 
     <div class="buttons-wrapper">
+
       <button class='change-month-button' on:mouseup={next} title="Pres Shift or Alt to swith year or decade" tabindex="-1">
-      <span class="change-month-button-content">
-        <svg width="1.25em" height="1.25em" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10.9767 9.99999L6.85168 5.87499L8.03002 4.69666L13.3334 9.99999L8.03002 15.3033L6.85168 14.125L10.9767 9.99999Z" />
-        </svg>
-      </span>
+        {#if !$$slots.nextMonth}
+          <span class="change-month-button-content">
+            <svg width="1.25em" height="1.25em" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10.9767 9.99999L6.85168 5.87499L8.03002 4.69666L13.3334 9.99999L8.03002 15.3033L6.85168 14.125L10.9767 9.99999Z" />
+            </svg>
+          </span>
+        {:else}
+          <slot name="nextMonth"></slot>
+        {/if}
       </button>
+
     </div>
 
   </div>
@@ -420,7 +431,6 @@
       font-size: var(--baseFontSize);
       transition: background .1s ease-in-out;
       border: none;
-      line-height: 0;
       cursor: pointer;
       &:hover {
         background: var(--surfaceColorDateActive100);
@@ -430,6 +440,7 @@
       }
 
       .change-month-button-content {
+        line-height: 0;
         display: block;
         svg path {
           fill: var(--textColorSecondary);
