@@ -185,7 +185,9 @@
      <div class="week">
       {#each weekdays as weekday, index}
         <div class="weekday">
-          {weekday.title}
+          <div class="weekday-inner">
+            {weekday.title}
+          </div>
         </div>
       {/each}
     </div>
@@ -259,6 +261,10 @@
 
   $cell-size: 40px;
 
+  * {
+    box-sizing: border-box;
+  }
+
   .description {
     font-size: .75em;
     color: var(--textColorSecondary);
@@ -272,11 +278,12 @@
 
   .calendar {
     position: relative;
+    font-size: var(--baseFontSize);
     border-radius: var(--radiusPanel);
-    box-shadow: 0 0 24px rgba(0,0,0,0.1);
-    padding: 1rem;
-    width: $cell-size * 7 + 7 * 2 + 16 * 2;
-    box-sizing: border-box;
+    box-shadow: 0 0 1.5em rgba(0,0,0,0.1);
+    width: calc(7 * 1.5em + 14 * var(--spacingBase));
+    padding: var(--spacingCalendarPadding);
+    box-sizing: content-box;
   }
 
   .month-view {
@@ -289,25 +296,25 @@
   }
 
   .weekday {
-    width: $cell-size;
-    height: $cell-size;
-    line-height:$cell-size;
+    padding: var(--spacingBase);
+    line-height: 1.5;
     font-size: .75em;
     text-align: center;
     color: var(--textColorSecondary);
-    border: 1px solid transparent;
+
+    .weekday-inner {
+      width: 2em;
+      font-size: inherit;
+      line-height: 1.5;
+    }
   }
 
   .day {
-    width: $cell-size;
-    height: $cell-size;
-    line-height: $cell-size;
-    font-size: var(--baseFontSize);
+    padding: var(--spacingBase);
+    background: var(--surfaceColorDateActive100);
     text-align: center;
     cursor: pointer;
-    background: var(--surfaceColorDateActive100);
     transition: all .1s ease-in-out;
-    border: 1px solid transparent;
 
     &.currentMonth {
       &:hover {
@@ -319,7 +326,11 @@
     }
 
     &.today {
-      border-color: var(--lineColorPrimary);
+      box-shadow: inset 0 0 0 1px var(--lineColorPrimary); // line
+      color: var(--textColorPrimary);
+      &.in-range, &.selected-day, &.selected-day-sec {
+        color: var(--textColorPrimaryInverted);
+      }
     }
 
     &.in-range {
@@ -344,7 +355,9 @@
     }
 
     .day-inner {
-      //width: 1.5em;
+      width: 1.5em;
+      font-size: inherit;
+      line-height: 1.5;
     }
     
   }

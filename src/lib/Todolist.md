@@ -1,3 +1,7 @@
+# All
+
+- [ ] Unit tests
+
 # Click outside helper
 
 # Dropdown
@@ -14,6 +18,8 @@
 - [ ] week starts from ...
 - [ ] additional buttons for change year
 - [ ] if dateEnd, than we don't need dateRange flag
+- [ ] Custom icons
+- [ ] Dropdown for Month and Year
 
 # DateRangePicker
 

@@ -2,6 +2,7 @@ export interface ICalendarOptions {
   // Synced with Figma file variables
   textColorBase?: string;
   textColorSecondary?: string;
+  textColorPrimary?: string;
   textColorMuted?: string;
   textColorBaseInverted?: string;
   textColorSecondaryInverted?: string;
@@ -17,14 +18,16 @@ export interface ICalendarOptions {
   surfaceColorDateSelection100?: string;
   surfaceColorDateSelection200?: string;
 
-  spacingNull?: string;
-  spacingBase?: string;
-  spacingCalendarPadding?: string;
-  spacingDateSize?: string;
+  spacingNull?: number;
+  spacingSmall?: number;
+  spacingBase?: number;
+  spacingCalendarPadding?: number;
+  spacingDateSize?: number;
 
-  radiusNull?: string;
-  radiusDay?: string;
-  radiusPanel?: string;
+  radiusNull?: number;
+  radiusDay?: number;
+  radiusControl?: number;
+  radiusPanel?: number;
 
 
   // Synced with Figma styles
@@ -36,6 +39,7 @@ export interface ICalendarOptions {
 export const calendarOptions: ICalendarOptions = {
   textColorBase: "inherit",
   textColorSecondary: "#818181",
+  textColorPrimary: "#0D7E2D",
   textColorMuted: "#b4b4b4",
   textColorBaseInverted: "#ffffff",
   textColorSecondaryInverted: "#ffffff99", // alpha
@@ -51,14 +55,16 @@ export const calendarOptions: ICalendarOptions = {
   surfaceColorDateSelection100: "#25b74e",
   surfaceColorDateSelection200: "#21b348",
 
-  spacingNull: "0",
-  spacingBase: "8px",
-  spacingCalendarPadding: "24px",
-  spacingDateSize: "24px",
+  spacingNull: 0,
+  spacingSmall: 4,
+  spacingBase: 8,
+  spacingCalendarPadding: 24,
+  spacingDateSize: 24,
 
-  radiusNull: "0",
-  radiusDay: "0",
-  radiusPanel: "12px",
+  radiusNull: 0,
+  radiusDay: 0,
+  radiusControl: 6,
+  radiusPanel: 12,
 
 
   // Synced with Figma styles
@@ -70,6 +76,7 @@ export const calendarOptions: ICalendarOptions = {
 export const variablesInStyle = `
   --textColorBase: ${calendarOptions.textColorBase};
   --textColorSecondary: ${calendarOptions.textColorSecondary};
+  --textColorPrimary: ${calendarOptions.textColorPrimary};
   --textColorMuted: ${calendarOptions.textColorMuted};
   --textColorBaseInverted: ${calendarOptions.textColorBaseInverted};
   --textColorSecondaryInverted: ${calendarOptions.textColorSecondaryInverted};
@@ -88,12 +95,14 @@ export const variablesInStyle = `
   --inRangeBg100: ${calendarOptions.surfaceColorDateSelection100};
   --inRangeBg200: ${calendarOptions.surfaceColorDateSelection200};
 
-  --spacingBase: ${calendarOptions.spacingBase};
-  --spacingCalendarPadding: ${calendarOptions.spacingCalendarPadding};
-  --spacingDateSize: ${calendarOptions.spacingDateSize};
+  --spacingBase: ${calendarOptions.spacingBase}px;
+  --spacingSmall: ${calendarOptions.spacingSmall}px;
+  --spacingCalendarPadding: ${calendarOptions.spacingCalendarPadding}px;
+  --spacingDateSize: ${calendarOptions.spacingDateSize}px;
 
-  --radiusDay: ${calendarOptions.radiusDay};
-  --radiusPanel: ${calendarOptions.radiusPanel};
+  --radiusDay: ${calendarOptions.radiusDay}px;
+  --radiusControl: ${calendarOptions.radiusControl}px;
+  --radiusPanel: ${calendarOptions.radiusPanel}px;
   
   
   --otherMonthsOpacity: ${calendarOptions.otherMonthsOpacity};
