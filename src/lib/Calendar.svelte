@@ -1,6 +1,6 @@
 <script lang="ts">
   import { startOfMonth, endOfMonth } from 'date-fns';
-  import { 
+  import {
     weekdays,
     getPreviousMonth,
     getNextMonth,
@@ -10,10 +10,10 @@
     getNextDecade,
     refreshCalendarGrid,
     dateIsInRange,
-    variablesInStyle
+    getStylingOptions,
+    months
   } from './Calendar';
   import type { IDays, DayType } from './Calendar';
-  import MonthAndYear from './MonthAndYear.svelte';
 
 
   export let dateRange = false;
@@ -177,9 +177,38 @@
 
 </script>
 
-<div class='calendar' style={variablesInStyle}>
+<div class='calendar' style={ getStylingOptions({}) }>
   
-  <MonthAndYear {currentMonth} {currentYear} {prev} {next} {reset} />
+
+  <div class='month-and-year-wrapper'>
+
+    <div class="buttons-wrapper">
+      <button class='change-month-button' on:mouseup={prev} title="Pres Shift or Alt to swith year or decade" tabindex="-1">
+      <span class="change-month-button-content">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.02332 9.99999L13.1483 14.125L11.97 15.3033L6.66666 9.99999L11.97 4.69666L13.1483 5.87499L9.02332 9.99999Z" />
+        </svg>
+      </span>
+      </button>
+    </div>
+
+    <div class="month-and-year" on:mouseup={reset} title="Meta + click: Reset month and year">
+      <div class='month'>{months[currentMonth]}</div>
+      <div class='year'>{currentYear}</div>
+    </div>
+
+    <div class="buttons-wrapper">
+      <button class='change-month-button' on:mouseup={next} title="Pres Shift or Alt to swith year or decade" tabindex="-1">
+      <span class="change-month-button-content">
+        <svg width="1.25em" height="1.25em" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.9767 9.99999L6.85168 5.87499L8.03002 4.69666L13.3334 9.99999L8.03002 15.3033L6.85168 14.125L10.9767 9.99999Z" />
+        </svg>
+      </span>
+      </button>
+    </div>
+
+  </div>
+
 
   <div class="month-view">
      <div class="week">
@@ -247,19 +276,18 @@
     </div>
   </div>
 
+
   <div class="description">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M8.00001 14.6667C4.31801 14.6667 1.33334 11.682 1.33334 8.00001C1.33334 4.31801 4.31801 1.33334 8.00001 1.33334C11.682 1.33334 14.6667 4.31801 14.6667 8.00001C14.6667 11.682 11.682 14.6667 8.00001 14.6667ZM8.00001 13.3333C9.4145 13.3333 10.7711 12.7714 11.7712 11.7712C12.7714 10.7711 13.3333 9.4145 13.3333 8.00001C13.3333 6.58552 12.7714 5.22897 11.7712 4.22877C10.7711 3.22858 9.4145 2.66668 8.00001 2.66668C6.58552 2.66668 5.22897 3.22858 4.22877 4.22877C3.22858 5.22897 2.66668 6.58552 2.66668 8.00001C2.66668 9.4145 3.22858 10.7711 4.22877 11.7712C5.22897 12.7714 6.58552 13.3333 8.00001 13.3333V13.3333ZM7.33334 4.66668H8.66668V6.00001H7.33334V4.66668ZM7.33334 7.33334H8.66668V11.3333H7.33334V7.33334Z" fill="#B1B1B1"/>
     </svg>
-
     Use Shift or Alt to change year or decade. Alt + click on month to reset to current
   </div>
+
 
 </div>
 
 <style lang='scss'>
-
-  $cell-size: 40px;
 
   * {
     box-sizing: border-box;
@@ -360,6 +388,56 @@
       line-height: 1.5;
     }
     
+  }
+
+  .month-and-year-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .month-and-year {
+      display: flex;
+      gap: .5em;
+      padding: var(--spacingSmall) calc(1.5 * var(--spacingBase));
+      border-radius: var(--radiusControl);
+      transition: background .2s ease-in-out;
+      cursor: pointer;
+      line-height: 1.5;
+      &:hover {
+        background: var(--surfaceColorDateActive100);
+      }
+
+    }
+
+    .buttons-wrapper {
+      display: flex;
+    }
+
+    .change-month-button {
+      padding: var(--spacingBase) var(--spacingSmall);
+      border-radius: var(--radiusControl);
+      background: var(--surfaceColorBase);
+      font-size: var(--baseFontSize);
+      transition: background .1s ease-in-out;
+      border: none;
+      line-height: 0;
+      cursor: pointer;
+      &:hover {
+        background: var(--surfaceColorDateActive100);
+      }
+      &:active {
+        background: var(--surfaceColorDateActive200);
+      }
+
+      .change-month-button-content {
+        display: block;
+        svg path {
+          fill: var(--textColorSecondary);
+        }
+      }
+
+    }
+
   }
 
 </style>

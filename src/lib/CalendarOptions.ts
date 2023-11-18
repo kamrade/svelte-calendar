@@ -108,3 +108,47 @@ export const variablesInStyle = `
   --otherMonthsOpacity: ${calendarOptions.otherMonthsOpacity};
   --baseFontSize: ${calendarOptions.baseFontSize};
 `;
+
+export const getStylingOptions = (reassignedOptions: ICalendarOptions) => {
+
+  const calendarOptionsMerged: ICalendarOptions = {
+    ...calendarOptions,
+    ...reassignedOptions
+  }
+
+  return `
+    --textColorBase: ${calendarOptionsMerged.textColorBase};
+    --textColorSecondary: ${calendarOptionsMerged.textColorSecondary};
+    --textColorPrimary: ${calendarOptionsMerged.textColorPrimary};
+    --textColorMuted: ${calendarOptionsMerged.textColorMuted};
+    --textColorBaseInverted: ${calendarOptionsMerged.textColorBaseInverted};
+    --textColorSecondaryInverted: ${calendarOptionsMerged.textColorSecondaryInverted};
+    --textColorPrimaryInverted: ${calendarOptionsMerged.textColorPrimaryInverted};
+  
+    --lineColorPrimary: ${calendarOptionsMerged.lineColorPrimary};
+  
+    --surfaceColorBase: ${calendarOptionsMerged.surfaceColorBase};
+    --surfaceColorDateActive100: ${calendarOptionsMerged.surfaceColorDateActive100};
+    --surfaceColorDateActive200: ${calendarOptionsMerged.surfaceColorDateActive200};
+    --surfaceColorDateFrame100: ${calendarOptionsMerged.surfaceColorDateFrame100};
+    --surfaceColorDateFrame200: ${calendarOptionsMerged.surfaceColorDateFrame200};
+    --surfaceColorDateSelection100: ${calendarOptionsMerged.surfaceColorDateSelection100};
+    --surfaceColorDateSelection200: ${calendarOptionsMerged.surfaceColorDateSelection200};
+  
+    --inRangeBg100: ${calendarOptionsMerged.surfaceColorDateSelection100};
+    --inRangeBg200: ${calendarOptionsMerged.surfaceColorDateSelection200};
+  
+    --spacingBase: ${calendarOptionsMerged.spacingBase}px;
+    --spacingSmall: ${calendarOptionsMerged.spacingSmall}px;
+    --spacingCalendarPadding: ${calendarOptionsMerged.spacingCalendarPadding}px;
+    --spacingDateSize: ${calendarOptionsMerged.spacingDateSize}px;
+  
+    --radiusDay: ${calendarOptionsMerged.radiusDay}px;
+    --radiusControl: ${calendarOptionsMerged.radiusControl}px;
+    --radiusPanel: ${calendarOptionsMerged.radiusPanel}px;
+    
+    
+    --otherMonthsOpacity: ${calendarOptionsMerged.otherMonthsOpacity};
+    --baseFontSize: ${calendarOptionsMerged.baseFontSize};
+  `;
+}

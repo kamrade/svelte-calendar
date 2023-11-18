@@ -12,6 +12,7 @@
 
 - [x] value + onChange mechanism
 - [x] styling options (css variables and js object)
+- [ ] reassign variables
 - [ ] value - only in Range
   - [ ] can't be bigger than
   - [ ] can't be smaller than
