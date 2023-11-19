@@ -13,6 +13,7 @@
     getStylingOptions,
     months
   } from './Calendar';
+  import type { ICalendarOptions } from './CalendarOptions';
   import type { IDays, DayType } from './Calendar';
 
 
@@ -20,6 +21,7 @@
   export let datePrimary: Date | undefined;
   export let dateSecondary: Date | undefined = dateRange ? undefined : new Date();
   export let onChange: (datePrimary?: Date, dateSecondary?: Date) => void;
+  export let styles: ICalendarOptions = {};
 
 
   const d = new Date();
@@ -177,7 +179,7 @@
 
 </script>
 
-<div class='calendar' style={ getStylingOptions({}) }>
+<div class='calendar' style={ getStylingOptions(styles) }>
   
 
   <div class='month-and-year-wrapper'>
@@ -323,6 +325,7 @@
     width: calc(7 * 1.5em + 14 * var(--spacingBase));
     padding: var(--spacingCalendarPadding);
     box-sizing: content-box;
+    color: var(--textColorBase);
   }
 
   .month-view {

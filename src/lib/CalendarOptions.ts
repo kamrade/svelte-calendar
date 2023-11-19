@@ -111,6 +111,8 @@ export const variablesInStyle = `
 
 export const getStylingOptions = (reassignedOptions: ICalendarOptions) => {
 
+  console.log(reassignedOptions);
+
   const calendarOptionsMerged: ICalendarOptions = {
     ...calendarOptions,
     ...reassignedOptions

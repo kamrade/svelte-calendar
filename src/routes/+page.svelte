@@ -21,14 +21,21 @@
 
     <h1 style="margin-bottom: 2rem">Calendar showcase</h1>
 
+    <div style="margin-bottom: 1rem; width: 280px;">
+      <DateRangePicker uniqID='dropdown-001' name='dropdown-001' dateStartIn={datePrimary} dateEndIn={dateSecondary} onChange={onChange} />
+    </div>
+    <div style="margin-bottom: 1rem; width: 280px;">
+      <DateRangePicker uniqID='dropdown-002' name='dropdown-002' dateStartIn={datePrimary} dateEndIn={dateSecondary} onChange={onChange}/>
+    </div>
+
     <div class="panel">
       <div>
         <h2>Date picker panel 1</h2>
-        <Calendar datePrimary={dateSingle} onChange={changeDateHandler}>
-          <span slot="previousMonth" style="color: grey">
+        <Calendar datePrimary={dateSingle} onChange={changeDateHandler} styles={{ textColorBase: 'green', baseFontSize: '14px' }}>
+          <span slot="previousMonth" style="color: blue">
             Previous
           </span>
-          <span slot="nextMonth" style="color: grey">
+          <span slot="nextMonth" style="color: blue">
             Next
           </span>
         </Calendar>
@@ -59,13 +66,6 @@
       </div>
 
     </div>
-  </div>
-
-  <div style="margin-bottom: 1rem; width: 280px;">
-    <DateRangePicker uniqID='dropdown-001' name='dropdown-001' dateStartIn={datePrimary} dateEndIn={dateSecondary} onChange={onChange} />
-  </div>
-  <div style="margin-bottom: 1rem; width: 280px;">
-    <DateRangePicker uniqID='dropdown-002' name='dropdown-002' dateStartIn={datePrimary} dateEndIn={dateSecondary} onChange={onChange}/>
   </div>
 
 </div>
