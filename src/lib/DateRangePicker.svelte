@@ -8,17 +8,12 @@
   
   export let uniqID: string;
   export let name: string;
-  export let dateStartIn: Date | undefined;
-  export let dateEndIn: Date | undefined;
+  export let datePrimary: Date | undefined;
+  export let dateSecondary: Date | undefined;
   export let onChange: (dateStart?: Date, dateEnd?: Date) => void;
 
 
   let isFocused = false;
-
-
-  let dateStart: Date | undefined = dateStartIn;
-  let dateEnd: Date | undefined = dateEndIn;
-
   let showDropdown = false;
 
   let dateStartDate: number;
@@ -34,32 +29,30 @@
   const handleClickOutside = (event: MouseEvent) => clickOutsideHandler(event, uniqID, () => showDropdown = false);
 
   const changeDateHandler = (date1?: Date, date2?: Date) => {
-    dateStart = date1 ? date1 : dateStart;
-    dateEnd = date2 ? date2 : dateEnd;
-    onChange && onChange(dateStart, dateEnd);
+    onChange && onChange(date1 ? date1 : datePrimary, date2 ? date2 : dateSecondary);
   }
 
   $: {
 
-    if (dateStart && dateEnd) {
-      if (dateStart.valueOf() > dateEnd.valueOf()) {
+    if (datePrimary && dateSecondary) {
+      if (datePrimary.valueOf() > dateSecondary.valueOf()) {
         // exchange values with buffer
-        let buffer = dateStart;
-        dateStart = dateEnd;
-        dateEnd = buffer;
+        let buffer = datePrimary;
+        datePrimary = dateSecondary;
+        dateSecondary = buffer;
       }
     }
 
-    if (dateStart) {
-      dateStartDate = dateStart.getDate();
-      dateStartMonth = dateStart.getMonth()+1;
-      dateStartYear = dateStart.getFullYear();
+    if (datePrimary) {
+      dateStartDate = datePrimary.getDate();
+      dateStartMonth = datePrimary.getMonth()+1;
+      dateStartYear = datePrimary.getFullYear();
     }
 
-    if (dateEnd) {
-      dateEndDate = dateEnd.getDate();
-      dateEndMonth = dateEnd.getMonth()+1;
-      dateEndYear = dateEnd.getFullYear();
+    if (dateSecondary) {
+      dateEndDate = dateSecondary.getDate();
+      dateEndMonth = dateSecondary.getMonth()+1;
+      dateEndYear = dateSecondary.getFullYear();
     }
     
   }
@@ -90,8 +83,8 @@
     on:blur={blurHandler}
     placeholder="Start date - End date"
     value={
-      (dateStart ? `${dateStartDate} / ${dateStartMonth} / ${dateStartYear}` : 'Start date') + ' - ' +
-      (dateEnd ? `${dateEndDate} / ${dateEndMonth} / ${dateEndYear}` : 'End date')}
+      (datePrimary ? `${dateStartDate} / ${dateStartMonth} / ${dateStartYear}` : 'Start date') + ' - ' +
+      (dateSecondary ? `${dateEndDate} / ${dateEndMonth} / ${dateEndYear}` : 'End date')}
   />
 
   <div class="dropdown-wrapper">
@@ -100,8 +93,8 @@
         <div>
           <Calendar 
             dateRange={true} 
-            datePrimary={dateStart}
-            dateSecondary={dateEnd}
+            {datePrimary}
+            {dateSecondary}
             onChange={changeDateHandler}
           />
         </div>
