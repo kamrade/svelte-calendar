@@ -30,15 +30,23 @@
 
     <div class="panel">
       <div>
-        <h2>Date picker panel 1</h2>
-        <Calendar datePrimary={dateSingle} onChange={changeDateHandler} styles={{ textColorBase: 'green', baseFontSize: '14px' }}>
-          <span slot="previousMonth" style="color: blue">
-            Previous
-          </span>
-          <span slot="nextMonth" style="color: blue">
-            Next
-          </span>
-        </Calendar>
+        <div class="tbd-calendar">
+          <h2>Date picker panel 1</h2>
+          <Calendar
+              datePrimary={dateSingle}
+              onChange={changeDateHandler}
+              styles={{
+                textColorBase: 'green',
+                baseFontSize: '14px'
+              }}>
+            <span slot="previousMonth" style="color: blue">
+              Previous
+            </span>
+            <span slot="nextMonth" style="color: blue">
+              Next
+            </span>
+          </Calendar>
+        </div>
       </div>
       <div>
         <h2>Date picker panel 2</h2>
@@ -77,4 +85,6 @@
     flex-wrap: wrap;
     gap: 2rem;
   }
+
+
 </style>
