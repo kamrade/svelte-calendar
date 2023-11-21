@@ -1,5 +1,5 @@
 import { format, isBefore, isAfter, isEqual } from 'date-fns';
-export * from './CalendarOptions';
+export * from './CalendarStylingOptions';
 
 export const weekdays = [{
   title: 'Su'
