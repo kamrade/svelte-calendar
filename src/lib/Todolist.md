@@ -20,8 +20,20 @@
 - [ ] additional buttons for change year
 - [x] Custom icons
 - [ ] Dropdown for Month and Year
+- [ ] Internationalization
+- [ ] 2 month
+- [ ] Appearing anumation
+- [ ] Allow single date range
+- [ ] Single date control
 
 # DateRangePicker
 
 - [x] value + onChange mechanism
 - [x] Calendar props (styling, weekStarts)
+- [ ] Disabled, disabled start date, disabled end date
+- [ ] Readonly
+- [ ] Clear dates button
+- [ ] Custom display format
+- [ ] Calendar icon, customization
+- [ ] Control styling
+- 
