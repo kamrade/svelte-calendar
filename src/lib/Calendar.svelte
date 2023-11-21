@@ -189,7 +189,7 @@
       <button class='change-month-button' on:mouseup={prev} title="Pres Shift or Alt to swith year or decade" tabindex="-1">
         {#if !$$slots.previousMonth}
           <span class="change-month-button-content">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="1.25em" height="1.25em" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M9.02332 9.99999L13.1483 14.125L11.97 15.3033L6.66666 9.99999L11.97 4.69666L13.1483 5.87499L9.02332 9.99999Z" />
             </svg>
           </span>
@@ -409,6 +409,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: .75em;
 
     .month-and-year {
       display: flex;

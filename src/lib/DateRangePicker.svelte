@@ -4,6 +4,8 @@
   import { clickOutsideHandler } from '$lib/utils';
   import Calendar from '$lib/Calendar.svelte';
   import Dropdown from '$lib/Dropdown.svelte';
+  import type { ICalendarOptions } from "$lib/CalendarStylingOptions";
+  import type { WeekStartsFrom } from "$lib/Calendar";
 
   
   export let uniqID: string;
@@ -11,6 +13,8 @@
   export let datePrimary: Date | undefined;
   export let dateSecondary: Date | undefined;
   export let onChange: (dateStart?: Date, dateEnd?: Date) => void;
+  export let styles: ICalendarOptions = {};
+  export let weekStartsFrom: WeekStartsFrom = 'Sunday';
 
 
   let isFocused = false;
@@ -91,7 +95,9 @@
     <Dropdown {showDropdown} hideDropdown={() => showDropdown = false} clickOutside={false} uniqID={uniqID + 'dropdown'}>
       <div slot="DropdownContent">
         <div>
-          <Calendar 
+          <Calendar
+            {styles}
+            {weekStartsFrom}
             dateRange={true} 
             {datePrimary}
             {dateSecondary}

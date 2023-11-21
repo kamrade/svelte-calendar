@@ -22,10 +22,26 @@
     <h1 style="margin-bottom: 2rem">Calendar showcase</h1>
 
     <div style="margin-bottom: 1rem; width: 280px;">
-      <DateRangePicker uniqID='dropdown-001' name='dropdown-001' {datePrimary} {dateSecondary} onChange={onChange} />
+      <DateRangePicker
+          weekStartsFrom="Monday"
+          uniqID='dropdown-001'
+          name='dropdown-001'
+          {datePrimary}
+          {dateSecondary}
+          onChange={onChange}
+          styles={{
+            baseFontSize: '24px'
+          }}
+      />
     </div>
     <div style="margin-bottom: 1rem; width: 280px;">
-      <DateRangePicker uniqID='dropdown-002' name='dropdown-002' {datePrimary} {dateSecondary} onChange={onChange}/>
+      <DateRangePicker
+          uniqID='dropdown-002'
+          name='dropdown-002'
+          {datePrimary}
+          {dateSecondary}
+          onChange={onChange}
+      />
     </div>
 
     <div class="panel">
