@@ -66,48 +66,12 @@ export const calendarOptions: ICalendarOptions = {
   radiusControl: 6,
   radiusPanel: 12,
 
-
   // Synced with Figma styles
   otherMonthsOpacity: "0.3",
   baseFontSize: "inherit",
 
 };
 
-export const variablesInStyle = `
-  --textColorBase: ${calendarOptions.textColorBase};
-  --textColorSecondary: ${calendarOptions.textColorSecondary};
-  --textColorPrimary: ${calendarOptions.textColorPrimary};
-  --textColorMuted: ${calendarOptions.textColorMuted};
-  --textColorBaseInverted: ${calendarOptions.textColorBaseInverted};
-  --textColorSecondaryInverted: ${calendarOptions.textColorSecondaryInverted};
-  --textColorPrimaryInverted: ${calendarOptions.textColorPrimaryInverted};
-
-  --lineColorPrimary: ${calendarOptions.lineColorPrimary};
-
-  --surfaceColorBase: ${calendarOptions.surfaceColorBase};
-  --surfaceColorDateActive100: ${calendarOptions.surfaceColorDateActive100};
-  --surfaceColorDateActive200: ${calendarOptions.surfaceColorDateActive200};
-  --surfaceColorDateFrame100: ${calendarOptions.surfaceColorDateFrame100};
-  --surfaceColorDateFrame200: ${calendarOptions.surfaceColorDateFrame200};
-  --surfaceColorDateSelection100: ${calendarOptions.surfaceColorDateSelection100};
-  --surfaceColorDateSelection200: ${calendarOptions.surfaceColorDateSelection200};
-
-  --inRangeBg100: ${calendarOptions.surfaceColorDateSelection100};
-  --inRangeBg200: ${calendarOptions.surfaceColorDateSelection200};
-
-  --spacingBase: ${calendarOptions.spacingBase}px;
-  --spacingSmall: ${calendarOptions.spacingSmall}px;
-  --spacingCalendarPadding: ${calendarOptions.spacingCalendarPadding}px;
-  --spacingDateSize: ${calendarOptions.spacingDateSize}px;
-
-  --radiusDay: ${calendarOptions.radiusDay}px;
-  --radiusControl: ${calendarOptions.radiusControl}px;
-  --radiusPanel: ${calendarOptions.radiusPanel}px;
-  
-  
-  --otherMonthsOpacity: ${calendarOptions.otherMonthsOpacity};
-  --baseFontSize: ${calendarOptions.baseFontSize};
-`;
 
 export const getStylingOptions = (reassignedOptions: ICalendarOptions) => {
 

@@ -15,6 +15,15 @@
 			"svelte": "./index.js"
 		}
 	},
+	"keywords": [
+		"svelte",
+		"calendar",
+		"date",
+		"date-range",
+		"picker",
+		"range",
+		"dropdown"
+	],
 	"scripts": {
 		"dev": "vite dev",
 		"build": "svelte-kit sync && svelte-package",
