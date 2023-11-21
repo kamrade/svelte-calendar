@@ -1,7 +1,6 @@
 # Svelte Date (Range) Picker
 
-Simple and reusable date (range) picker. Project still in development.
-It will be ready for use very soon.
+Simple and reusable date (range) picker.
 
 ## Installation
 
@@ -16,6 +15,56 @@ or via yarn:
 ```bash
 yarn add @kamrade/svelte-datepicker
 ```
+
+## Props
+
+### Calendar
+
+```
+  dateRange: boolean;
+  datePrimary: Date | boolean;
+  dateSecondary: Date | boolean;
+  onChange: (datePrimary?: Date, dateSecondary?: Date) => void;
+  styles: ICalendarOptions;
+  weekStartsFrom: 'Monday' | 'Sunday;
+  
+  interface ICalendarOptions {
+    textColorBase?: string;
+    textColorSecondary?: string;
+    textColorPrimary?: string;
+    textColorMuted?: string;
+    textColorBaseInverted?: string;
+    textColorSecondaryInverted?: string;
+    textColorPrimaryInverted?: string;
+  
+    lineColorPrimary?: string;
+  
+    surfaceColorBase?: string;
+    surfaceColorDateActive100?: string;
+    surfaceColorDateActive200?: string;
+    surfaceColorDateFrame100?: string;
+    surfaceColorDateFrame200?: string;
+    surfaceColorDateSelection100?: string;
+    surfaceColorDateSelection200?: string;
+  
+    spacingNull?: number;
+    spacingSmall?: number;
+    spacingBase?: number;
+    spacingCalendarPadding?: number;
+    spacingDateSize?: number;
+  
+    radiusNull?: number;
+    radiusDay?: number;
+    radiusControl?: number;
+    radiusPanel?: number;
+  
+  
+    otherMonthsOpacity?: string;
+    baseFontSize?: string;
+  }
+```
+
+All of the ICalendarOptions are synced with Figma variables ot styles. 
 
 ## Figma Showcase
 
