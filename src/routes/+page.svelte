@@ -33,10 +33,10 @@
         <div class="tbd-calendar">
           <h2>Date picker panel 1</h2>
           <Calendar
+              weekStartsFrom="Monday"
               datePrimary={dateSingle}
               onChange={changeDateHandler}
               styles={{
-                textColorBase: 'green',
                 baseFontSize: '14px'
               }}>
             <span slot="previousMonth" style="color: blue">
@@ -67,6 +67,7 @@
         <h2>Date-range picker panel 2</h2>
         <Calendar
             dateRange={true}
+            weekStartsFrom="Monday"
             datePrimary={datePrimary}
             dateSecondary={dateSecondary}
             onChange={onChange}

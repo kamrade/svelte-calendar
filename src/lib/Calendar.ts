@@ -1,24 +1,21 @@
 import { format, isBefore, isAfter, isEqual } from 'date-fns';
 export * from './CalendarStylingOptions';
 
-export const weekdays = [{
-  title: 'Su'
-}, {
-  title: 'Mo'
-}, {
-  title: 'Tu'
-}, {
-  title: 'We'
-}, {
-  title: 'Th'
-}, {
-  title: 'Fr'
-}, {
-  title: 'Sa'
-}];
 
+export type WeekStartsFrom = 'Sunday' | 'Monday';
 
 export const weekdaysArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+export const getWeekDays = (weekStartsFrom: WeekStartsFrom = 'Sunday') => {
+  const weekdaysArrayShort = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  if (weekStartsFrom === "Monday") {
+    weekdaysArrayShort.push('Su');
+    weekdaysArrayShort.shift();
+  }
+  return weekdaysArrayShort.map((el) => ({
+    title: el
+  }));
+}
 
 
 export const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -69,31 +66,42 @@ export interface IDays {
 }
 
 
-export const refreshCalendarGrid = (currentMonthStartDay: Date, daysInPreviousMonth: number, daysInCurrentMonth: number) => {
+export const refreshCalendarGrid = (
+  currentMonthStartDay: Date,
+  daysInPreviousMonth: number,
+  daysInCurrentMonth: number,
+  weekStartsFrom: WeekStartsFrom
+) => {
 
+  // Current month starts from this weekday
   const currentMonthStartDayNumber = getWeekday(currentMonthStartDay);
+  // How many full weeks has current month
   const weeks = Math.trunc((daysInCurrentMonth - (7 - currentMonthStartDayNumber)) / 7);
   let max = 0;
   let nextMax = 1;
   const currentMonthDays: IDays[][] = [[],[],[],[],[],[]];
+  const weekStartOffset = weekStartsFrom === "Sunday" ? 0 : weekStartsFrom === "Monday" ? 1 : 0;
 
   for (let i = 0; i < 6; i++) {
+
+    // previous month days
     if (i === 0) {
-      for (let j = 0; j < currentMonthStartDayNumber; j++) {
+      for (let j = 0; j < currentMonthStartDayNumber - weekStartOffset; j++) {
         currentMonthDays[i][j] = {
           dayType: 'previousMonth',
-          dateNumber: daysInPreviousMonth - currentMonthStartDayNumber + j + 1
+          dateNumber: daysInPreviousMonth - currentMonthStartDayNumber + j + 1 + weekStartOffset
         };
       }
-      for (let j = currentMonthStartDayNumber; j < 7; j++) {
+      for (let j = currentMonthStartDayNumber - weekStartOffset; j < 7; j++) {
         max++;
         currentMonthDays[i][j] = {
           dayType: 'currentMonth',
-          dateNumber: j - currentMonthStartDayNumber + 1
+          dateNumber: j - currentMonthStartDayNumber + 1 + weekStartOffset
         };
       }
+
+      // next month days
     } else if (i > weeks) {
-      
       for (let j = 0; j < 7; j++) {
         if (max < daysInCurrentMonth) {
           max++;
@@ -110,6 +118,7 @@ export const refreshCalendarGrid = (currentMonthStartDay: Date, daysInPreviousMo
         } 
       }
 
+      // current month days
     } else {
       for (let j = 0; j < 7; j++) {  
         max++;        

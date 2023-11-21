@@ -24,4 +24,5 @@
 
 # DateRangePicker
 
-- [ ] value + onChange mechanism
+- [x] value + onChange mechanism
+- [ ] Calendar props

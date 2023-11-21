@@ -1,7 +1,6 @@
 <script lang="ts">
   import { startOfMonth, endOfMonth } from 'date-fns';
   import {
-    weekdays,
     getPreviousMonth,
     getNextMonth,
     getPreviousYear,
@@ -11,10 +10,11 @@
     refreshCalendarGrid,
     dateIsInRange,
     getStylingOptions,
-    months
+    months,
+    getWeekDays
   } from './Calendar';
-  import type { ICalendarOptions } from './CalendarOptions';
-  import type { IDays, DayType } from './Calendar';
+  import type { ICalendarOptions } from './CalendarStylingOptions';
+  import type { IDays, DayType, WeekStartsFrom } from './Calendar';
 
 
   export let dateRange = false;
@@ -22,6 +22,7 @@
   export let dateSecondary: Date | undefined = dateRange ? undefined : new Date();
   export let onChange: (datePrimary?: Date, dateSecondary?: Date) => void;
   export let styles: ICalendarOptions = {};
+  export let weekStartsFrom: WeekStartsFrom = 'Sunday';
 
 
   const d = new Date();
@@ -80,7 +81,7 @@
     nextMonthEndDay = endOfMonth( new Date(nextYear, nextMonth+1, 0) );
     daysInNextMonth = new Date(nextYear, nextMonth+1, 0).getDate();
 
-    currentMonthDays = refreshCalendarGrid(currentMonthStartDay, daysInPreviousMonth, daysInCurrentMonth);
+    currentMonthDays = refreshCalendarGrid(currentMonthStartDay, daysInPreviousMonth, daysInCurrentMonth, weekStartsFrom);
 
     if (dateRange) {
       selectedDayPrimary = datePrimary?.getDate();
@@ -224,8 +225,8 @@
 
 
   <div class="month-view">
-     <div class="week">
-      {#each weekdays as weekday, index}
+    <div class="week">
+      {#each getWeekDays(weekStartsFrom) as weekday, index}
         <div class="weekday">
           <div class="weekday-inner">
             {weekday.title}
