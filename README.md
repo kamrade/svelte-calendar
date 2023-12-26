@@ -27,7 +27,8 @@ yarn add @kamrade/svelte-datepicker
   onChange: (datePrimary?: Date, dateSecondary?: Date) => void;
   styles: ICalendarOptions;
   weekStartsFrom: 'Monday' | 'Sunday;
-  
+  dateLimitation: (Date | null)[] // 1st value = from, 2nd = to
+
   interface ICalendarOptions {
     textColorBase?: string;
     textColorSecondary?: string;
@@ -36,9 +37,9 @@ yarn add @kamrade/svelte-datepicker
     textColorBaseInverted?: string;
     textColorSecondaryInverted?: string;
     textColorPrimaryInverted?: string;
-  
+
     lineColorPrimary?: string;
-  
+
     surfaceColorBase?: string;
     surfaceColorDateActive100?: string;
     surfaceColorDateActive200?: string;
@@ -46,25 +47,25 @@ yarn add @kamrade/svelte-datepicker
     surfaceColorDateFrame200?: string;
     surfaceColorDateSelection100?: string;
     surfaceColorDateSelection200?: string;
-  
+
     spacingNull?: number;
     spacingSmall?: number;
     spacingBase?: number;
     spacingCalendarPadding?: number;
     spacingDateSize?: number;
-  
+
     radiusNull?: number;
     radiusDay?: number;
     radiusControl?: number;
     radiusPanel?: number;
-  
-  
+
+    disabledDaysOpacity?: string;
     otherMonthsOpacity?: string;
     baseFontSize?: string;
   }
 ```
 
-All of the ICalendarOptions are synced with Figma variables ot styles. 
+All of the ICalendarOptions are synced with Figma variables ot styles.
 
 ## Figma Showcase
 
@@ -107,8 +108,10 @@ npm run build
 - [x] reassign variables
 - [x] week starts from ...
 - [ ] value - only in Range
-    - [ ] can't be bigger than
-    - [ ] can't be smaller than
+  - [x] can't be bigger than ...
+  - [x] can't be smaller than ...
+  - [ ] check input dates
+  - [ ] prohibit to set range over the limiters
 - [ ] additional buttons for change year
 - [x] Custom icons
 - [ ] Dropdown for Month and Year
@@ -128,4 +131,4 @@ npm run build
 - [ ] Custom display format
 - [ ] Calendar icon, customization
 - [ ] Control styling
-- 
+-

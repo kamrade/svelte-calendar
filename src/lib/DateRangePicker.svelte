@@ -15,7 +15,7 @@
   export let onChange: (dateStart?: Date, dateEnd?: Date) => void;
   export let styles: ICalendarOptions = {};
   export let weekStartsFrom: WeekStartsFrom = 'Sunday';
-
+  export let dateLimitation: (Date | null)[] = [null, null];
 
   let isFocused = false;
   let showDropdown = false;
@@ -102,6 +102,7 @@
             {datePrimary}
             {dateSecondary}
             onChange={changeDateHandler}
+            {dateLimitation}
           />
         </div>
       </div>

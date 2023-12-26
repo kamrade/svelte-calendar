@@ -31,6 +31,7 @@ export interface ICalendarOptions {
 
 
   // Synced with Figma styles
+  disabledDaysOpacity?: string;
   otherMonthsOpacity?: string;
   baseFontSize?: string;
 
@@ -67,7 +68,8 @@ export const calendarOptions: ICalendarOptions = {
   radiusPanel: 12,
 
   // Synced with Figma styles
-  otherMonthsOpacity: "0.3",
+  disabledDaysOpacity: "0.4",
+  otherMonthsOpacity: "0.1",
   baseFontSize: "inherit",
 
 };
@@ -112,6 +114,7 @@ export const getStylingOptions = (reassignedOptions: ICalendarOptions) => {
     --radiusPanel: ${calendarOptionsMerged.radiusPanel}px;
     
     
+    --disabledDaysOpacity: ${calendarOptionsMerged.disabledDaysOpacity};
     --otherMonthsOpacity: ${calendarOptionsMerged.otherMonthsOpacity};
     --baseFontSize: ${calendarOptionsMerged.baseFontSize};
   `;
