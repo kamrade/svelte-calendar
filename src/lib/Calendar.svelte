@@ -23,7 +23,17 @@
   export let onChange: (datePrimary?: Date, dateSecondary?: Date) => void;
   export let styles: ICalendarOptions = {};
   export let weekStartsFrom: WeekStartsFrom = 'Sunday';
+  export let dateLimitation: (Date | null)[] = [null, null];
 
+  let dateLimitFrom = dateLimitation[0];
+  let dateLimitFromYear = dateLimitFrom?.getFullYear() || 0;
+  let dateLimitFromMonth = dateLimitFrom?.getMonth() || 0;
+  let dateLimitFromDate = dateLimitFrom?.getDate() || 0;
+
+  let dateLimitTo = dateLimitation[1];
+  let dateLimitToYear = dateLimitTo?.getFullYear() || 0;
+  let dateLimitToMonth = dateLimitTo?.getMonth() || 0;
+  let dateLimitToDate = dateLimitTo?.getDate() || 0;
 
   const d = new Date();
   let actualMonth = d.getMonth();
@@ -176,6 +186,24 @@
 
     return false;
   }
+
+  const checkDateLimitation = (dateNumber: number) => {
+
+    let from = dateLimitFrom?.getTime();
+    let to = dateLimitTo?.getTime();
+    let current = new Date(currentYear, currentMonth, dateNumber);
+    let curr = current.getTime();
+
+    if (from && to) {
+      return (curr >= from) && (curr <= to);
+    } else if (from) {
+      return curr >= from
+    } else if (to) {
+      return curr <= to
+    }
+    return true;
+
+  }
  
 
 </script>
@@ -241,45 +269,43 @@
           <!-- TODO: Classname can be shortened with some generic function -->
           <div
             class={`
-              day ${day.dayType} 
+              day ${day.dayType}
+              ${checkDateLimitation(day.dateNumber) ? 'active' : 'disabled'}
               ${(actualMonth === currentMonth
                 && actualYear === currentYear
                 && actualDay === day.dateNumber
                 && day.dayType === 'currentMonth') ? 'today' : ''}
-              
               ${(selectedMonthPrimary === currentMonth
                 && selectedYearPrimary === currentYear
                 && selectedDayPrimary === day.dateNumber
                 && day.dayType === 'currentMonth') ? 'selected-day' : ''}
-
               ${(selectedMonthPrimary === nextMonth
                 && selectedYearPrimary === nextYear
                 && selectedDayPrimary === day.dateNumber
                 && day.dayType === 'nextMonth') ? 'selected-day' : ''}
-
               ${(selectedMonthPrimary === previousMonth
                 && selectedYearPrimary === previousYear
                 && selectedDayPrimary === day.dateNumber
                 && day.dayType === 'previousMonth') ? 'selected-day' : ''}
-              
               ${(selectedMonthSec === currentMonth
                 && selectedYearSec === currentYear
                 && selectedDaySec === day.dateNumber
                 && day.dayType === 'currentMonth') ? 'selected-day-sec' : ''}
-
               ${(selectedMonthSec === nextMonth
                 && selectedYearSec === nextYear
                 && selectedDaySec === day.dateNumber
                 && day.dayType === 'nextMonth') ? 'selected-day-sec' : ''}
-
               ${(selectedMonthSec === previousMonth
                 && selectedYearSec === previousYear
                 && selectedDaySec === day.dateNumber
                 && day.dayType === 'previousMonth') ? 'selected-day-sec' : ''}
-              
               ${checkDate(day.dateNumber, day.dayType) ? 'in-range' : ''}
             `}
-            on:mouseup={(e) => { day.dayType === 'currentMonth' && setDate(e, day.dateNumber) }}
+            on:mouseup={(e) => { 
+              if (checkDateLimitation(day.dateNumber)) {
+                day.dayType === 'currentMonth' && setDate(e, day.dateNumber)
+              }
+            }}
           >
             <div class="day-inner">
               {day.dateNumber}
@@ -395,6 +421,14 @@
     &.previousMonth, &.nextMonth {
       opacity: var(--otherMonthsOpacity);
       cursor: default;
+    }
+
+    &.disabled {
+      opacity: var(--otherMonthsOpacity);
+      cursor: default;
+      &:hover, &:active {
+        background: transparent;
+      }
     }
 
     .day-inner {

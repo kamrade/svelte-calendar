@@ -14,6 +14,14 @@
     dateSecondary = date2;
   }
 
+  let datePrimaryLimited: Date | undefined = new Date(2024, 8, 20);
+  let dateSecondaryLimited: Date | undefined = new Date(2024, 10, 20);
+  let onChangeLimited = (date1?: Date, date2?: Date) => {
+    datePrimaryLimited = date1;
+    dateSecondaryLimited = date2;
+  }
+  let dateLimitation = [new Date(), new Date(2024, 3, 8)];
+
 </script>
 
 <div class="container">
@@ -30,7 +38,7 @@
           {dateSecondary}
           onChange={onChange}
           styles={{
-            baseFontSize: '24px'
+            baseFontSize: '24px',
           }}
       />
     </div>
@@ -76,6 +84,7 @@
           datePrimary={datePrimary}
           dateSecondary={dateSecondary}
           onChange={onChange}
+          dateLimitation={[new Date(), null]}
         />
       </div>
 
@@ -84,9 +93,16 @@
         <Calendar
             dateRange={true}
             weekStartsFrom="Monday"
-            datePrimary={datePrimary}
-            dateSecondary={dateSecondary}
-            onChange={onChange}
+            datePrimary={datePrimaryLimited}
+            dateSecondary={dateSecondaryLimited}
+            onChange={onChangeLimited}
+            dateLimitation={dateLimitation}
+            styles={{
+              surfaceColorDateFrame100: 'rgba(220, 10, 10)',
+              surfaceColorDateFrame200: 'rgba(200, 10, 10)',
+              surfaceColorDateSelection100: 'rgba(255, 50, 50)',
+              surfaceColorDateSelection200: 'rgba(235, 50, 50)',
+            }}
         />
       </div>
 
@@ -102,6 +118,4 @@
     flex-wrap: wrap;
     gap: 2rem;
   }
-
-
 </style>
