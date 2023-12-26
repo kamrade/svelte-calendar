@@ -17,6 +17,7 @@
   import type { IDays, DayType, WeekStartsFrom } from './Calendar';
 
 
+  export let name: string;
   export let dateRange = false;
   export let datePrimary: Date | undefined;
   export let dateSecondary: Date | undefined = dateRange ? undefined : new Date();
@@ -24,6 +25,42 @@
   export let styles: ICalendarOptions = {};
   export let weekStartsFrom: WeekStartsFrom = 'Sunday';
   export let dateLimitation: (Date | null)[] = [null, null];
+  export let showDescription: boolean = true;
+
+  const validateLimitation = () => {
+
+    let from = dateLimitFrom?.getTime();
+    let to = dateLimitTo?.getTime();
+    let primary = datePrimary?.getTime() || 0;
+    let secondary = dateSecondary?.getTime() || 0;
+
+    if (from && to) {
+      if (primary && secondary) {
+        return ((primary >= from) && (primary <= to)) && ((secondary >= from) && (secondary <= to));
+      } else if (primary) {
+        return (primary >= from) && (primary <= to);
+      } else if (secondary) {
+        return (secondary >= from) && (secondary <= to);
+      }
+    } else if (from) {
+      if (primary && secondary) {
+        return ((primary >= from)) && ((secondary >= from));
+      } else if (primary) {
+        return (primary >= from);
+      } else if (secondary) {
+        return (secondary >= from);
+      }
+    } else if (to) {
+      if (primary && secondary) {
+        return (primary <= to) && (secondary <= to);
+      } else if (primary) {
+        return primary <= to;
+      } else if (secondary) {
+        return secondary <= to;
+      }
+    }
+    return true;
+  }
 
   let dateLimitFrom = dateLimitation[0];
   let dateLimitFromYear = dateLimitFrom?.getFullYear() || 0;
@@ -104,6 +141,13 @@
       selectedDayPrimary = datePrimary?.getDate();
       selectedMonthPrimary = datePrimary?.getMonth();
       selectedYearPrimary = datePrimary?.getFullYear();
+    }
+
+    if (!validateLimitation()) {
+      datePrimary = undefined;
+      dateSecondary = undefined;
+      console.error('Invalid dateRange value. Exceed the specified limit.' + name);
+      console.error('Unset date');
     }
   }
 
@@ -316,12 +360,14 @@
     </div>
   </div>
 
-  <div class="description">
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8.00001 14.6667C4.31801 14.6667 1.33334 11.682 1.33334 8.00001C1.33334 4.31801 4.31801 1.33334 8.00001 1.33334C11.682 1.33334 14.6667 4.31801 14.6667 8.00001C14.6667 11.682 11.682 14.6667 8.00001 14.6667ZM8.00001 13.3333C9.4145 13.3333 10.7711 12.7714 11.7712 11.7712C12.7714 10.7711 13.3333 9.4145 13.3333 8.00001C13.3333 6.58552 12.7714 5.22897 11.7712 4.22877C10.7711 3.22858 9.4145 2.66668 8.00001 2.66668C6.58552 2.66668 5.22897 3.22858 4.22877 4.22877C3.22858 5.22897 2.66668 6.58552 2.66668 8.00001C2.66668 9.4145 3.22858 10.7711 4.22877 11.7712C5.22897 12.7714 6.58552 13.3333 8.00001 13.3333V13.3333ZM7.33334 4.66668H8.66668V6.00001H7.33334V4.66668ZM7.33334 7.33334H8.66668V11.3333H7.33334V7.33334Z" fill="#B1B1B1"/>
-    </svg>
-    Use Shift or Alt to change year or decade. Alt + click on month to reset to current
-  </div>
+  {#if showDescription}
+    <div class="description">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.00001 14.6667C4.31801 14.6667 1.33334 11.682 1.33334 8.00001C1.33334 4.31801 4.31801 1.33334 8.00001 1.33334C11.682 1.33334 14.6667 4.31801 14.6667 8.00001C14.6667 11.682 11.682 14.6667 8.00001 14.6667ZM8.00001 13.3333C9.4145 13.3333 10.7711 12.7714 11.7712 11.7712C12.7714 10.7711 13.3333 9.4145 13.3333 8.00001C13.3333 6.58552 12.7714 5.22897 11.7712 4.22877C10.7711 3.22858 9.4145 2.66668 8.00001 2.66668C6.58552 2.66668 5.22897 3.22858 4.22877 4.22877C3.22858 5.22897 2.66668 6.58552 2.66668 8.00001C2.66668 9.4145 3.22858 10.7711 4.22877 11.7712C5.22897 12.7714 6.58552 13.3333 8.00001 13.3333V13.3333ZM7.33334 4.66668H8.66668V6.00001H7.33334V4.66668ZM7.33334 7.33334H8.66668V11.3333H7.33334V7.33334Z" fill="#B1B1B1"/>
+      </svg>
+      Use Shift or Alt to change year or decade. Alt + click on month to reset to current
+    </div>
+  {/if}
 
 
 </div>

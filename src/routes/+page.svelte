@@ -7,8 +7,8 @@
     dateSingle = dateStart;
   }
 
-  let datePrimary: Date | undefined = new Date(1999, 8, 20);
-  let dateSecondary: Date | undefined = new Date(2023, 10, 20);
+  let datePrimary: Date | undefined = new Date(2024, 8, 20);
+  let dateSecondary: Date | undefined = new Date(2024, 10, 20);
   let onChange = (date1?: Date, date2?: Date) => {
     datePrimary = date1;
     dateSecondary = date2;
@@ -57,6 +57,7 @@
         <div class="tbd-calendar">
           <h2>Date picker panel 1</h2>
           <Calendar
+              name="calendar-001"
               weekStartsFrom="Monday"
               datePrimary={dateSingle}
               onChange={changeDateHandler}
@@ -74,23 +75,26 @@
       </div>
       <div>
         <h2>Date picker panel 2</h2>
-        <Calendar datePrimary={dateSingle} onChange={changeDateHandler} />
+        <Calendar name="calendar-002" datePrimary={dateSingle} onChange={changeDateHandler} />
       </div>
 
       <div>
         <h2>Date-range picker panel 1</h2>
         <Calendar
+        name="calendar-003"
           dateRange={true}
           datePrimary={datePrimary}
           dateSecondary={dateSecondary}
           onChange={onChange}
           dateLimitation={[new Date(), null]}
+          showDescription={false}
         />
       </div>
 
       <div>
         <h2>Date-range picker panel 2</h2>
         <Calendar
+            name="calendar-004"
             dateRange={true}
             weekStartsFrom="Monday"
             datePrimary={datePrimaryLimited}

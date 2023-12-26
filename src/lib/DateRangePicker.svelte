@@ -7,7 +7,6 @@
   import type { ICalendarOptions } from "$lib/CalendarStylingOptions";
   import type { WeekStartsFrom } from "$lib/Calendar";
 
-  
   export let uniqID: string;
   export let name: string;
   export let datePrimary: Date | undefined;
@@ -16,6 +15,7 @@
   export let styles: ICalendarOptions = {};
   export let weekStartsFrom: WeekStartsFrom = 'Sunday';
   export let dateLimitation: (Date | null)[] = [null, null];
+  export let showDescription: boolean = true;
 
   let isFocused = false;
   let showDropdown = false;
@@ -103,6 +103,8 @@
             {dateSecondary}
             onChange={changeDateHandler}
             {dateLimitation}
+            {showDescription}
+            {name}
           />
         </div>
       </div>

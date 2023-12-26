@@ -28,6 +28,7 @@ yarn add @kamrade/svelte-datepicker
   styles: ICalendarOptions;
   weekStartsFrom: 'Monday' | 'Sunday;
   dateLimitation: (Date | null)[] // 1st value = from, 2nd = to
+  showDescription: boolean;
 
   interface ICalendarOptions {
     textColorBase?: string;
