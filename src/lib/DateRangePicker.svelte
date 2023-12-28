@@ -7,6 +7,7 @@
   import type { ICalendarOptions } from "$lib/CalendarStylingOptions";
   import type { WeekStartsFrom } from "$lib/Calendar";
 
+  export let dateRange: boolean = false;
   export let uniqID: string;
   export let name: string;
   export let datePrimary: Date | undefined;
@@ -87,8 +88,9 @@
     on:blur={blurHandler}
     placeholder="Start date - End date"
     value={
-      (datePrimary ? `${dateStartDate} / ${dateStartMonth} / ${dateStartYear}` : 'Start date') + ' - ' +
-      (dateSecondary ? `${dateEndDate} / ${dateEndMonth} / ${dateEndYear}` : 'End date')}
+      (datePrimary ? `${dateStartDate} / ${dateStartMonth} / ${dateStartYear}` : (dateRange ? 'Start date' : 'Date')) 
+      + (dateRange ? ' - ' : '')
+      + (dateSecondary ? `${dateEndDate} / ${dateEndMonth} / ${dateEndYear}` : dateRange ? 'End date' : '')}
   />
 
   <div class="dropdown-wrapper">
@@ -98,9 +100,9 @@
           <Calendar
             {styles}
             {weekStartsFrom}
-            dateRange={true} 
-            {datePrimary}
-            {dateSecondary}
+            {dateRange}
+            bind:datePrimary={datePrimary}
+            bind:dateSecondary={dateSecondary}
             onChange={changeDateHandler}
             {dateLimitation}
             {showDescription}

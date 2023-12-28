@@ -31,24 +31,27 @@
 
     <div style="margin-bottom: 1rem; width: 280px;">
       <DateRangePicker
-          weekStartsFrom="Monday"
-          uniqID='dropdown-001'
-          name='dropdown-001'
-          {datePrimary}
-          {dateSecondary}
-          onChange={onChange}
-          styles={{
-            baseFontSize: '24px',
-          }}
+        weekStartsFrom="Monday"
+        uniqID='dropdown-001'
+        name='dropdown-001'
+        datePrimary={dateSingle}
+        dateSecondary={undefined}
+        onChange={changeDateHandler}
+        dateLimitation={[new Date(), null]}
+        dateRange={false}
+        styles={{
+          baseFontSize: '24px',
+        }}
       />
     </div>
     <div style="margin-bottom: 1rem; width: 280px;">
       <DateRangePicker
-          uniqID='dropdown-002'
-          name='dropdown-002'
-          {datePrimary}
-          {dateSecondary}
-          onChange={onChange}
+        dateRange={true}
+        uniqID='dropdown-002'
+        name='dropdown-002'
+        {datePrimary}
+        {dateSecondary}
+        onChange={onChange}
       />
     </div>
 
@@ -81,7 +84,7 @@
       <div>
         <h2>Date-range picker panel 1</h2>
         <Calendar
-        name="calendar-003"
+          name="calendar-003"
           dateRange={true}
           datePrimary={datePrimary}
           dateSecondary={dateSecondary}

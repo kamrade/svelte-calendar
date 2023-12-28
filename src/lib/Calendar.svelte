@@ -233,18 +233,22 @@
 
   const checkDateLimitation = (dateNumber: number) => {
 
-    let from = dateLimitFrom?.getTime();
-    let to = dateLimitTo?.getTime();
-    let current = new Date(currentYear, currentMonth, dateNumber);
-    let curr = current.getTime();
+    if (dateLimitFrom || dateLimitTo) {
+      let from = dateLimitFrom?.getTime();
+      let to = dateLimitTo?.getTime();
+      let current = new Date(currentYear, currentMonth, dateNumber);
+      let curr = current.getTime();
 
-    if (from && to) {
-      return (curr >= from) && (curr <= to);
-    } else if (from) {
-      return curr >= from
-    } else if (to) {
-      return curr <= to
+      if (from && to) {
+        return (curr >= from) && (curr <= to);
+      } else if (from) {
+        return curr >= from
+      } else if (to) {
+        return curr <= to
+      }
     }
+
+    
     return true;
 
   }
